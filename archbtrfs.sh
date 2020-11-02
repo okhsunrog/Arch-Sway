@@ -1,8 +1,6 @@
 #!/bin/bash
 timedatectl set-ntp true
 reflector --latest 250 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-echo "Enter your swap size in MiB"
-read -p 'Swap size : ' swsize
 sgdisk /dev/sda -o
 sgdisk --clear \
          --new=1:0:+100MiB --typecode=1:ef00 --change-name=1:EFI \
@@ -34,6 +32,11 @@ echo "127.0.0.1	localhost
 127.0.1.1	${hsname}.localdomain	${hsname}" > /mnt/etc/hosts
 sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /mnt/etc/locale.gen
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf 
-curl -s https://danila7.github.io/archbtrfsch.sh -o /mnt/chrscript.sh
-chmod +x /mnt/chrscript.sh
-arch-chroot /mnt ./chrscript.sh
+cp archbtrfsch.sh /mnt/
+cp after_install.sh /mnt/
+cp -r .config /mnt/.config
+cp -r .local /mnt/.local
+cp -r Wallpapers /mnt/Wallpapers
+chmod +x /mnt/after_install.sh
+chmod +x /mnt/archbtrfsch.sh
+arch-chroot /mnt ./archbtrfsch.sh

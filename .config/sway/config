@@ -2,20 +2,8 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-# Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
-set $term termite
+set $term alacritty
 set $menu bemenu-run
-
-#Notifications dismiss
-bindsym --to-code $mod+Shift+n exec "/home/katya/scripts/dismiss_n_a.sh"
-bindsym --to-code $mod+n exec "/home/katya/scripts/dismiss_n.sh"
-
-#App menu 
-bindsym --to-code $mod+s exec wofi --show drun
 
 #Autostart
 exec mako
@@ -23,17 +11,10 @@ exec mako
 
 #Output configuration
 output * {
-	background /home/katya/wallpapers/desktop.jpg fill
+	background /home/$USER//Pictures/Wallpapers/desktop.jpg fill
 }
 
 ### Idle configuration
-
-set $lock_command '~/scripts/lock.sh'
-
-exec swayidle -w \
-timeout 600 '$lock_command' \
-timeout 900 'systemctl suspend' \
-before-sleep '$lock_command'
 
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -42,12 +23,28 @@ before-sleep '$lock_command'
 
 ### Input configuration
 
-input "1:1:AT_Translated_Set_2_keyboard" {
+input "*" {
 	xkb_layout "us,ru"
         xkb_options "grp:caps_toggle"
+	xkb_numlock enabled
+	dwt enabled
+	middle_emulation enabled
+	tap enabled
 	}
 
 ### Key bindings
+
+    #Notifications dismiss
+    bindsym --to-code $mod+Shift+n exec "/home/$USER/scripts/dismiss_n_a.sh"
+    bindsym --to-code $mod+n exec "/home/$USER/scripts/dismiss_n.sh"
+
+    #App menu
+    bindsym --to-code $mod+s exec wofi --show drun
+
+    # Lock 
+    bindsym --to-code $mod+l exec "/home/$USER/scripts/lock.sh"
+    
+
     # Start a terminal
     bindsym --to-code $mod+t exec $term
 
@@ -73,22 +70,12 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 # Moving around:
 #
     # Move your focus around
-    bindsym --to-code $mod+$left focus left
-    bindsym --to-code $mod+$down focus down
-    bindsym --to-code $mod+$up focus up
-    bindsym --to-code $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
     # Move the focused window with the same, but add Shift
-    bindsym --to-code $mod+Shift+$left move left
-    bindsym --to-code $mod+Shift+$down move down
-    bindsym --to-code $mod+Shift+$up move up
-    bindsym --to-code $mod+Shift+$right move right
-    # Ditto, with arrow keys
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
@@ -123,17 +110,17 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 
 #Screenshots
 #Full screen to file
-bindsym $mod+Print exec "/home/katya/scripts/screenshot_full_file.sh"
+bindsym $mod+Print exec "/home/$USER/scripts/screenshot_full_file.sh"
 #Full screen to clipboard
-bindsym Print exec "/home/katya/scripts/screenshot_full_clipboard.sh"
+bindsym Print exec "/home/$USER/scripts/screenshot_full_clipboard.sh"
 #Select region and write to file
-bindsym $mod+Print+Shift exec "/home/katya/scripts/screenshot_part_file.sh"
+bindsym $mod+Print+Shift exec "/home/$USER/scripts/screenshot_part_file.sh"
 #Select region and copy to clipboard
-bindsym Print+Shift exec "/home/katya/scripts/screenshot_part_clipboard.sh"
+bindsym Print+Shift exec "/home/$USER/scripts/screenshot_part_clipboard.sh"
 #Select window and write to file
-bindsym $mod+Print+Control exec "/home/katya/scripts/screenshot_window_file.sh"
+bindsym $mod+Print+Control exec "/home/$USER/scripts/screenshot_window_file.sh"
 #Select window andwindow and copy to clipboard
-bindsym Print+Control exec "/home/katya/scripts/screenshot_window_clipboard.sh"
+bindsym Print+Control exec "/home/$USER/scripts/screenshot_window_clipboard.sh"
 # Layout stuff:
 #
     # You can "split" the current object of your focus with
@@ -173,12 +160,6 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym --to-code $left resize shrink width 10px
-    bindsym --to-code $down resize grow height 10px
-    bindsym --to-code $up resize shrink height 10px
-    bindsym --to-code $right resize grow width 10px
-
-    # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
@@ -190,19 +171,43 @@ mode "resize" {
 }
 bindsym --to-code $mod+r mode "resize"
 
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
 bar {
-	swaybar_command waybar
+    position top
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
 }
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioRaiseVolume+Shift exec pactl set-sink-volume @DEFAULT_SINK@ +1%
+bindsym XF86AudioLowerVolume+Shift exec pactl set-sink-volume @DEFAULT_SINK@ -1%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
+bindsym XF86MonBrightnessDown+Shift exec brightnessctl s 1%-
+bindsym XF86MonBrightnessUp+Shift exec brightnessctl s 1%+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 #Colors
 
-set $cl_foc "#1b39e0"
-set $cl_unf "#484a54"
-set $cl_fin "#292f52"
+set $cl_foc "#ffcc1b"
+set $cl_unf "#57544a"
+set $cl_fin "#786a37"
 set $cl_urg "#c40404"
 set $cl_ind "#ff0000"
 set $cl_bgr "#191a24"
