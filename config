@@ -1,0 +1,231 @@
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+set $term termite
+set $menu bemenu-run
+
+#Notifications dismiss
+bindsym --to-code $mod+Shift+n exec "/home/katya/scripts/dismiss_n_a.sh"
+bindsym --to-code $mod+n exec "/home/katya/scripts/dismiss_n.sh"
+
+#App menu 
+bindsym --to-code $mod+s exec wofi --show drun
+
+#Autostart
+exec mako
+
+
+#Output configuration
+output * {
+	background /home/katya/wallpapers/desktop.jpg fill
+}
+
+### Idle configuration
+
+set $lock_command '~/scripts/lock.sh'
+
+exec swayidle -w \
+timeout 600 '$lock_command' \
+timeout 900 'systemctl suspend' \
+before-sleep '$lock_command'
+
+
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+	xkb_layout "us,ru"
+        xkb_options "grp:caps_toggle"
+	}
+
+### Key bindings
+    # Start a terminal
+    bindsym --to-code $mod+t exec $term
+
+    # Kill focused window
+    bindsym --to-code $mod+Shift+q kill
+
+    # Start your launcher
+    bindsym --to-code $mod+d exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym --to-code $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym --to-code $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym --to-code $mod+$left focus left
+    bindsym --to-code $mod+$down focus down
+    bindsym --to-code $mod+$up focus up
+    bindsym --to-code $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym --to-code $mod+Shift+$left move left
+    bindsym --to-code $mod+Shift+$down move down
+    bindsym --to-code $mod+Shift+$up move up
+    bindsym --to-code $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+
+#Screenshots
+#Full screen to file
+bindsym $mod+Print exec "/home/katya/scripts/screenshot_full_file.sh"
+#Full screen to clipboard
+bindsym Print exec "/home/katya/scripts/screenshot_full_clipboard.sh"
+#Select region and write to file
+bindsym $mod+Print+Shift exec "/home/katya/scripts/screenshot_part_file.sh"
+#Select region and copy to clipboard
+bindsym Print+Shift exec "/home/katya/scripts/screenshot_part_clipboard.sh"
+#Select window and write to file
+bindsym $mod+Print+Control exec "/home/katya/scripts/screenshot_window_file.sh"
+#Select window andwindow and copy to clipboard
+bindsym Print+Control exec "/home/katya/scripts/screenshot_window_clipboard.sh"
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym --to-code $mod+b splith
+    bindsym --to-code $mod+v splitv
+
+    # Make the current focus fullscreen
+    bindsym --to-code $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym --to-code $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym --to-code $left resize shrink width 10px
+    bindsym --to-code $down resize grow height 10px
+    bindsym --to-code $up resize shrink height 10px
+    bindsym --to-code $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym --to-code $mod+r mode "resize"
+
+bar {
+	swaybar_command waybar
+}
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+#Colors
+
+set $cl_foc "#1b39e0"
+set $cl_unf "#484a54"
+set $cl_fin "#292f52"
+set $cl_urg "#c40404"
+set $cl_ind "#ff0000"
+set $cl_bgr "#191a24"
+set $cl_txt "#ffffff" 
+
+#                         border   bg       text      indicator   childborder
+client.focused            $cl_foc  $cl_bgr  $cl_txt   $cl_ind     $cl_foc
+client.focused_inactive   $cl_fin  $cl_bgr  $cl_txt   $cl_ind     $cl_fin
+client.unfocused          $cl_unf  $cl_bgr  $cl_txt   $cl_ind     $cl_unf
+client.urgent             $cl_urg  $cl_bgr  $cl_txt   $cl_ind     $cl_urg
+
+
+#Windows' configuration
+for_window [title="bemenu-run"] floating enable
+for_window [app_id="pavucontrol"] floating enable
+for_window [title="Device connected - Mozilla Firefox"] floating enable
+for_window [title="Picture-in-Picture" app_id="firefox"] floating enable
+for_window [title="win0"] floating enable
+default_floating_border pixel 3
+default_border pixel 2
+smart_gaps on
+smart_borders on
+gaps inner 5
+gaps outer 3
+titlebar_border_thickness 0
+include /etc/sway/config.d/*
