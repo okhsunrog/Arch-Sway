@@ -33,18 +33,13 @@ useradd -mG wheel,video,uucp,lock,vboxusers -s /usr/bin/fish $uname
 read -sp "Enter $uname password: " upass
 echo "$upass
 $upass" | passwd $uname
-cp /root/.gnupg/dirmngr.conf /home/$uname/.gnupg/dirmngr.conf
+mkdir .gnupg/
+cp /root/.gnupg/dirmngr.conf /home/$uname/.gnupg/
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 echo 'ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"' > /etc/udev/rules.d/99-udisks2.rules
-git config --global user.name "Danila"
-git config --global user.email "dghak@bk.ru"
 su - $uname -c 'xdg-user-dirs-update'
 su - $uname -c 'set fish_greeting'
 mkdir /home/$uname/Pictures/screenshots
-mv /Wallpapers /home/$uname/Pictures/
-mv /.local /home/$uname/
-mv /.config /home/$uname/
-mv after_install.sh /home/$uname/
 git clone https://aur.archlinux.org/yay-bin.git /tmp/aurbuild
 chmod 777 /tmp/aurbuild
 su - $uname -c 'cd /tmp/aurbuild; makepkg -s'
@@ -76,3 +71,7 @@ chmod 600 /swap/swapfile
 mkswap /swap/swapfile
 swapon /swap/swapfile
 echo "/swap/swapfile          none            swap            defaults        0 0" >> /etc/fstab
+mv /Wallpapers /home/$uname/Pictures/Wallpapers
+mv /.local /home/$uname/.local
+mv /.config /home/$uname/.config
+mv /after_install.sh /home/$uname/

@@ -34,9 +34,9 @@ sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /mnt/etc/locale.gen
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf 
 cp archbtrfsch.sh /mnt/
 cp after_install.sh /mnt/
-cp -r .config /mnt/.config
-cp -r .local /mnt/.local
-cp -r Wallpapers /mnt/Wallpapers
+cp -r .config /mnt/
+cp -r .local /mnt/
+cp -r Wallpapers /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/archbtrfsch.sh
 arch-chroot /mnt ./archbtrfsch.sh
