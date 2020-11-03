@@ -1,0 +1,8 @@
+font=Noto Sans 11
+background-color=#002635
+text-color=#e6e6dc
+border-color=#ffcc1b
+border-size=2
+progress-color=#ffcc1b
+default-timeout=15000
+

@@ -1,25 +1,17 @@
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
-set $term alacritty
-set $menu bemenu-run
-
 #Autostart
 exec mako
-
+exec udiskie
+#exec gammastep -m wayland -l 55.7:37.6 -t 6500:4000
 
 #Output configuration
 output * {
 	background /home/$USER//Pictures/Wallpapers/desktop.jpg fill
 }
 
-### Idle configuration
-
+#Locks PC before sleep and hibernation
 exec swayidle -w before-sleep "/home/$USER/scripts/lock.sh"
 
 ### Input configuration
-
 input "*" {
 	xkb_layout "us,ru"
         xkb_options "grp:caps_toggle"
@@ -29,179 +21,25 @@ input "*" {
 	tap enabled
 	}
 
-### Key bindings
 
-    #Notifications dismiss
-    bindsym --to-code $mod+Shift+n exec "/home/$USER/scripts/dismiss_n_a.sh"
-    bindsym --to-code $mod+n exec "/home/$USER/scripts/dismiss_n.sh"
-
-    #App menu
-    bindsym --to-code $mod+s exec wofi --show drun
-
-    # Lock 
-    bindsym --to-code $mod+l exec "/home/$USER/scripts/lock.sh"
-    
-
-    # Start a terminal
-    bindsym --to-code $mod+t exec $term
-
-    # Kill focused window
-    bindsym --to-code $mod+q kill
-
-    # Start your launcher
-    bindsym --to-code $mod+d exec $menu
-
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
-    floating_modifier $mod normal
-
-    # Reload the configuration file
-    bindsym --to-code $mod+c reload
-
-    # Exit sway (logs you out of your Wayland session)
-    bindsym --to-code $mod+e exec swaynag -t warning -m 'Power menu' -B 'Exit' 'swaymsg exit' -B 'Power off' 'poweroff' -B 'Reboot' 'reboot' -B 'Sleep' 'systemctl suspend' -B 'Hibernate' 'systemctl hibernate'
-#
-# Moving around:
-#
-    # Move your focus around
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
-
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
-    # Switch to workspace
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
-    # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
-
-#Screenshots
-#Full screen to file
-bindsym $mod+Print exec "/home/$USER/scripts/screenshot_full_file.sh"
-#Full screen to clipboard
-bindsym Print exec "/home/$USER/scripts/screenshot_full_clipboard.sh"
-#Select region and write to file
-bindsym $mod+Print+Shift exec "/home/$USER/scripts/screenshot_part_file.sh"
-#Select region and copy to clipboard
-bindsym Print+Shift exec "/home/$USER/scripts/screenshot_part_clipboard.sh"
-#Select window and write to file
-bindsym $mod+Print+Control exec "/home/$USER/scripts/screenshot_window_file.sh"
-#Select window andwindow and copy to clipboard
-bindsym Print+Control exec "/home/$USER/scripts/screenshot_window_clipboard.sh"
-# Layout stuff:
-#
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym --to-code $mod+b splith
-    bindsym --to-code $mod+v splitv
-
-    # Make the current focus fullscreen
-    bindsym --to-code $mod+f fullscreen
-
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
-
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
-
-    # Move focus to the parent container
-    bindsym --to-code $mod+a focus parent
-#
-# Scratchpad:
-#
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym --to-code $mod+r mode "resize"
-
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
+#Bars configuration
 bar {
+font pango:DejaVu Sans Mono, Font Awesome 5 Free
     position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-
+    status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
     colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
     }
 }
 
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioRaiseVolume+Shift exec pactl set-sink-volume @DEFAULT_SINK@ +1%
-bindsym XF86AudioLowerVolume+Shift exec pactl set-sink-volume @DEFAULT_SINK@ -1%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
-bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
-bindsym XF86MonBrightnessDown+Shift exec brightnessctl s 1%-
-bindsym XF86MonBrightnessUp+Shift exec brightnessctl s 1%+
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
 
-#Colors
-
+#Borders colors
 set $cl_foc "#ffcc1b"
 set $cl_unf "#57544a"
 set $cl_fin "#786a37"
@@ -220,6 +58,7 @@ client.urgent             $cl_urg  $cl_bgr  $cl_txt   $cl_ind     $cl_urg
 #Windows' configuration
 for_window [title="bemenu-run"] floating enable
 for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="nmtui"] floating enable
 for_window [title="Device connected - Mozilla Firefox"] floating enable
 for_window [title="Picture-in-Picture" app_id="firefox"] floating enable
 for_window [title="win0"] floating enable
@@ -230,4 +69,7 @@ smart_borders on
 gaps inner 5
 gaps outer 3
 titlebar_border_thickness 0
+
+
+include ~/.config/sway/*
 include /etc/sway/config.d/*

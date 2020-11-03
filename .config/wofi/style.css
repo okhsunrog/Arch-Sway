@@ -1,0 +1,44 @@
+* {
+    font-weight: bold;
+    border-radius: 0;
+}
+
+window {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+#input {
+	padding: 5px;
+	border: 0px solid #3daee9;
+	color: #ffffff;
+	font-size: 14px;
+	background-color: rgba(49,54,59, 1);
+}
+
+#input image {
+	margin: 6px;
+}
+
+#scroll {
+    font-size: 14px;
+	color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#img {
+	margin: 0px 5px 0px 0px;
+}
+
+#inner-box flowboxchild {
+	padding: 2px;
+}
+
+#inner-box flowboxchild:selected {
+    background-color: #3daee9;
+    color: #ffffff;
+}
+
+list {
+	background-color: #0f5f8a;
+}
+
