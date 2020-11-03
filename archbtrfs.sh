@@ -1,10 +1,11 @@
 #!/bin/bash
+rmmod pcspkr
 timedatectl set-ntp true
 reflector --latest 250 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 sgdisk /dev/sda -o
 sgdisk --clear \
          --new=1:0:+100MiB --typecode=1:ef00 --change-name=1:EFI \
-         --new=3:0:0       --typecode=3:8300 --change-name=3:cryptsystem \
+         --new=2:0:0       --typecode=2:8300 --change-name=2:cryptsystem \
            /dev/sda
 fdisk -l
 mkfs.fat -F32 -n EFI /dev/disk/by-partlabel/EFI
@@ -34,6 +35,7 @@ sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /mnt/etc/locale.gen
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf 
 cp archbtrfsch.sh /mnt/
 cp after_install.sh /mnt/
+cp btrfs_map_physical.c /mnt/
 cp -r .config /mnt/
 cp -r .local /mnt/
 cp -r Wallpapers /mnt/
@@ -41,3 +43,4 @@ cp -r scripts /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/archbtrfsch.sh
 arch-chroot /mnt ./archbtrfsch.sh
+rm /mnt/archbtrfsch.sh
