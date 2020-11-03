@@ -6,6 +6,7 @@ timedatectl set-timezone Europe/Moscow
 timedatectl set-ntp true
 localectl set-locale LANG=en_US.UTF-8
 pacman -Syyu
+echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 systemctl enable NetworkManager
 rm /etc/mkinitcpio.conf
 echo 'MODULES=""
