@@ -37,6 +37,7 @@ cp after_install.sh /mnt/
 cp -r .config /mnt/
 cp -r .local /mnt/
 cp -r Wallpapers /mnt/
+cp -r scripts /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/archbtrfsch.sh
 arch-chroot /mnt ./archbtrfsch.sh

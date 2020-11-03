@@ -20,7 +20,7 @@ linux           /vmlinuz-linux
 initrd          /intel-ucode.img
 initrd          /initramfs-linux.img
 options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system rootflags=subvol=@ rd.luks.options=discard rw" > /boot/loader/entries/arch.conf
-pacman -S ttf-dejavu gnu-free-fonts noto-fonts noto-fonts-extra ttf-hack noto-fonts-emoji zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps clementine udiskie udisks2 htop gnome-icon-theme gnome-icon-theme-extras qt5ct meson ninja scdoc brightnessctl playerctl mako acpi qbittorrent virtualbox virtualbox-host-modules-arch gimp code libreoffice-fresh xorg-server-xwayland xdg-user-dirs ffmpeg youtube-dl jdk14-openjdk jdk8-openjdk mpv imv tmux openssh wget fish pulseaudio pulseaudio-alsa firefox bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans wofi git sway alacritty neofetch pavucontrol ranger grim slurp jq wl-clipboard swaylock ttf-fira-code neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav --noconfirm
+pacman -S ttf-dejavu gnu-free-fonts noto-fonts noto-fonts-extra ttf-hack noto-fonts-emoji zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps clementine udiskie udisks2 htop gnome-icon-theme gnome-icon-theme-extras qt5ct meson ninja scdoc brightnessctl playerctl mako acpi qbittorrent virtualbox virtualbox-host-modules-arch gimp code libreoffice-fresh xorg-server-xwayland xdg-user-dirs ffmpeg youtube-dl jdk14-openjdk jdk8-openjdk mpv imv tmux openssh wget fish pulseaudio pulseaudio-alsa firefox bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans wofi git sway alacritty neofetch pavucontrol ranger grim slurp jq wl-clipboard ttf-fira-code neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav --noconfirm
 echo "keyserver hkp://pool.sks-keyservers.net
 keyserver https://sks-keyservers.net/
 keyserver https://keys.mailvelope.com/
@@ -33,13 +33,19 @@ useradd -mG wheel,video,uucp,lock,vboxusers -s /usr/bin/fish $uname
 read -sp "Enter $uname password: " upass
 echo "$upass
 $upass" | passwd $uname
-mkdir .gnupg/
+mkdir /home/$uname/.gnupg/
 cp /root/.gnupg/dirmngr.conf /home/$uname/.gnupg/
+chown -R $uname:$uname /home/$uname/.gnupg
+chmod 700 /root/.gnupg
+chmod 600 /root/.gnupg/*
+chmod 700 /home/$uname/.gnupg
+chmod 600 /home/$uname/.gnupg/*
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 echo 'ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"' > /etc/udev/rules.d/99-udisks2.rules
 su - $uname -c 'xdg-user-dirs-update'
 su - $uname -c 'set fish_greeting'
 mkdir /home/$uname/Pictures/screenshots
+chown -R $uname:$uname /home/$uname/Pictures/screenshots
 git clone https://aur.archlinux.org/yay-bin.git /tmp/aurbuild
 chmod 777 /tmp/aurbuild
 su - $uname -c 'cd /tmp/aurbuild; makepkg -s'
@@ -72,6 +78,11 @@ mkswap /swap/swapfile
 swapon /swap/swapfile
 echo "/swap/swapfile          none            swap            defaults        0 0" >> /etc/fstab
 mv /Wallpapers /home/$uname/Pictures/Wallpapers
+rm -rf /home/$uname/.local
+rm -rf /home/$uname/.config
 mv /.local /home/$uname/.local
 mv /.config /home/$uname/.config
 mv /after_install.sh /home/$uname/
+mv /scripts /home/$uname/scripts
+chmod +x /home/$uname/scripts/*
+chown -R $uname:$uname /home/$uname
