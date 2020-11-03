@@ -14,12 +14,7 @@ output * {
 	background /home/$USER//Pictures/Wallpapers/desktop.jpg fill
 }
 
-### Idle configuration
-
-
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+exec swayidle -w before-sleep "/home/$USER/scripts/lock.sh"
 
 ### Input configuration
 
