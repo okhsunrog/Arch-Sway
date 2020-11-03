@@ -43,7 +43,6 @@ chmod 700 /home/$uname/.gnupg
 chmod 600 /home/$uname/.gnupg/*
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 echo 'ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"' > /etc/udev/rules.d/99-udisks2.rules
-su - $uname -c 'xdg-user-dirs-update'
 su - $uname -c 'set fish_greeting'
 mkdir /home/$uname/Pictures/screenshots
 chown -R $uname:$uname /home/$uname/Pictures/screenshots

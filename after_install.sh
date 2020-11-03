@@ -1,4 +1,5 @@
 #!/bin/bash
+xdg-user-dirs-update
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 git config --global user.name "Danila"
 git config --global user.email "dghak@bk.ru"
