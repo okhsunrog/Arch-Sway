@@ -1,5 +1,4 @@
 #!/bin/bash
-rfkill unblock all &> /dev/null
 mount -a &> /dev/null
 locale-gen &> /dev/null
 hwclock --systohc &> /dev/null
