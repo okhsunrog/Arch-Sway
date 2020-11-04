@@ -8,17 +8,18 @@ if [ "$(whoami)" != "root" ]; then
 else
 echo "Running..."
 pacman -S archiso --noconfirm --needed
-cd /root
-cp -r /usr/share/archiso/configs/releng archlive
-rm archlive/airootfs/root/.automated_script.sh
-rm archlive/airootfs/root/customize_airootfs.sh
-rm archlive/airootfs/root/create_boot_image.sh
-git clone https://github.com/danila7/arch_btrfs_enc.git archlive/airootfs/root/ 
-rm -rf archlive/airootfs/root/.git
+cp -r /usr/share/archiso/configs/releng /root/archlive
+rm -rf /root/archlive/airootfs/root/*
+git clone https://github.com/danila7/arch_btrfs_enc.git /root/archlive/airootfs/root/ 
+rm /root/archlive/airootfs/root/create_boot_image.sh
+rm -rf /root/archlive/airootfs/root/.git
 rm -rf /tmp/archiso-tmp
-mkarchiso -v -w /tmp/archiso-tmp archlive
-dd if=out/ar* of=/dev/sdb bs=4M status=progress oflag=sync
-rm -rf out archlive
+mkdir /root/out
+mkarchiso -v -w /tmp/archiso-tmp -o /root/out /root/archlive
+umount /dev/sdb*
+umount /dev/sdb
+dd if=/root/out/ar* of=/dev/sdb bs=4M status=progress oflag=sync
+rm -rf /root/out /root/archlive
 echo "Finished"
 fi
 
