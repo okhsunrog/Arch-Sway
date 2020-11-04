@@ -1,6 +1,8 @@
 #Autostart
 exec mako
 exec udiskie
+exec wl-paste -t text --watch clipman store
+exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
 #exec gammastep -m wayland -l 55.7:37.6 -t 6500:4000
 
 #Output configuration

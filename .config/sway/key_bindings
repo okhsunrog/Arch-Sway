@@ -7,11 +7,22 @@ set $menu bemenu-run
 bindsym --to-code $mod+Shift+n exec "/home/$USER/scripts/dismiss_n_a.sh"
 bindsym --to-code $mod+n exec "/home/$USER/scripts/dismiss_n.sh"
 
+#Open clipboard manager
+bindsym --to-code $mod+c exec "pkill wofi || clipman pick -t wofi"
+
+#Remove one item from history
+bindsym --to-code $mod+Ctrl+c exec "clipman clear -t wofi"
+
+#Clear clipboard history
+bindsym --to-code $mod+Shift+c exec "clipman clear --all"
+
 #App launchers
 #1
 bindsym --to-code $mod+s exec "pkill wofi || wofi"
 #2
 bindsym --to-code $mod+d exec $menu
+
+
 
 # Lock
 bindsym --to-code $mod+l exec "/home/$USER/scripts/lock.sh"
@@ -30,7 +41,7 @@ bindsym --to-code $mod+q kill
 floating_modifier $mod normal
 
 # Reload the configuration file
-bindsym --to-code $mod+c exec "/home/$USER/scripts/reload.sh"
+bindsym --to-code $mod+Shift+e exec "/home/$USER/scripts/reload.sh"
 
 # Power menu
 bindsym --to-code $mod+e exec swaynag -t warning -m 'Power menu' -B 'Exit' 'swaymsg exit' -B 'Power off' 'poweroff' -B 'Reboot' 'reboot' -B 'Sleep' 'systemctl suspend' -B 'Hibernate' 'systemctl hibernate'

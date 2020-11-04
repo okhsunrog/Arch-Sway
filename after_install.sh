@@ -6,7 +6,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 git config --global user.name "Danila"
 git config --global user.email "dghak@bk.ru"
 echo "Installing additiional packages..."
-yay -S pulseaudio-modules-bt-git virtualbox-ext-oracle translate-shell obs-studio-wayland wlrobs zoom jmtpfs swaylock-effects-git yandex-disk spotify adbfs-rootless-git scrcpy nm-connection-editor networkmanager-openvpn hunspell hunspell-en_US hunspell-ru-aot-ieyo hyphen hyphen-en hyphen-ru ytop-bin --noconfirm
+yay -S clipman pulseaudio-modules-bt-git virtualbox-ext-oracle translate-shell obs-studio-wayland wlrobs zoom jmtpfs swaylock-effects-git yandex-disk spotify adbfs-rootless-git scrcpy nm-connection-editor networkmanager-openvpn hunspell hunspell-en_US hunspell-ru-aot-ieyo hyphen hyphen-en hyphen-ru ytop-bin --noconfirm
 echo "Zoom configuration..."
 mkdir ~/.local/share/applications
 cp /usr/share/applications/Zoom.desktop ~/.local/share/applications
