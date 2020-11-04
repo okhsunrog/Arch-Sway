@@ -7,7 +7,7 @@ if [ "$(whoami)" != "root" ]; then
         exit 255
 else
 echo "Running..."
-pacman -S archiso --noconfirm --needed &> /dev/null
+pacman -S archiso --noconfirm --needed
 cp -r /usr/share/archiso/configs/releng /root/archlive
 rm -rf /root/archlive/airootfs/root
 git clone https://github.com/danila7/arch_btrfs_enc.git /root/archlive/airootfs/root/ 
@@ -16,11 +16,12 @@ rm -rf /root/archlive/airootfs/root/.git
 rm -rf /tmp/archiso-tmp
 mkdir /root/out
 echo "Creating image..."
-mkarchiso -v -w /tmp/archiso-tmp -o /root/out /root/archlive &> /dev/null
+mkarchiso -v -w /tmp/archiso-tmp -o /root/out /root/archlive
 umount /dev/sdb*
 umount /dev/sdb
 echo "Flashing image..."
-dd if=/root/out/ar* of=/dev/sdb bs=4M status=progress oflag=sync
+pathiso="/root/out/"$(ls /root/out)
+dd if=$pathiso of=/dev/sdb bs=4M status=progress oflag=sync
 rm -rf /root/out /root/archlive
 echo "Finished"
 fi
