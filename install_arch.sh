@@ -28,7 +28,7 @@ mount -t btrfs -o subvol=@home,$o LABEL=system /mnt/home &> /dev/null
 mount -t btrfs -o subvol=@swap,$o_swap LABEL=system /mnt/swap &> /dev/null
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot &> /dev/null
 echo "Installing packages..."
-pacstrap /mnt base base-devel linux linux-firmware btrfs-progs man-db man-pages neovim networkmanager intel-ucode &> /dev/null
+pacstrap /mnt base base-devel linux linux-firmware btrfs-progs man-db man-pages neovim networkmanager &> /dev/null
 echo "Configuring..."
 genfstab -L -p /mnt >> /mnt/etc/fstab
 echo $hsname > /mnt/etc/hostname
