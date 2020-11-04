@@ -1,36 +1,38 @@
 #!/bin/bash
 echo "Welcome to the Arch-Sway installing script!"
+#cryptpass=somepass01
 read -p 'Enter disk encryption password: ' cryptpass
+#hsname=test
 read -p 'Enter your hostname (name of your PC): ' hsname
 rmmod pcspkr
 timedatectl set-ntp true
 echo "Updating Arch mirrors..."
 reflector --latest 250 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 echo "Configuring disks..."
-sgdisk /dev/sda -o &> /dev/null
+sgdisk /dev/sda -o
 sgdisk --clear \
          --new=1:0:+100MiB --typecode=1:ef00 --change-name=1:EFI \
          --new=2:0:0       --typecode=2:8300 --change-name=2:cryptsystem \
-           /dev/sda &> /dev/null
-mkfs.fat -F32 -n EFI /dev/disk/by-partlabel/EFI &> /dev/null
-echo $cryptpass | cryptsetup luksFormat --align-payload=8192 -s 256 -c aes-xts-plain64 /dev/disk/by-partlabel/cryptsystem &> /dev/null
-echo $cryptpass | cryptsetup open /dev/disk/by-partlabel/cryptsystem system &> /dev/null
-mkfs.btrfs --force --label system /dev/mapper/system &> /dev/null
+           /dev/sda
+mkfs.fat -F32 -n EFI /dev/disk/by-partlabel/EFI
+echo $cryptpass | cryptsetup luksFormat --align-payload=8192 -s 256 -c aes-xts-plain64 /dev/disk/by-partlabel/cryptsystem
+echo $cryptpass | cryptsetup open /dev/disk/by-partlabel/cryptsystem system
+mkfs.btrfs --force --label system /dev/mapper/system
 export o_swap=defaults,X-mount.mkdir,ssd,discard=async,noatime,nodiratime,space_cache
 export o=$o_swap,commit=120,compress=zstd
-mount -t btrfs LABEL=system /mnt &> /dev/null
-btrfs subvolume create /mnt/@ &> /dev/null
-btrfs subvolume create /mnt/@home &> /dev/null
-btrfs subvolume create /mnt/@swap &> /dev/null
-umount -R /mnt &> /dev/null
-mount -t btrfs -o subvol=@,$o LABEL=system /mnt &> /dev/null
-mount -t btrfs -o subvol=@home,$o LABEL=system /mnt/home &> /dev/null
-mount -t btrfs -o subvol=@swap,$o_swap LABEL=system /mnt/swap &> /dev/null
-mount -o X-mount.mkdir LABEL=EFI /mnt/boot &> /dev/null
+mount -t btrfs LABEL=system /mnt
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+btrfs subvolume create /mnt/@swap
+umount -R /mnt
+mount -t btrfs -o subvol=@,$o LABEL=system /mnt
+mount -t btrfs -o subvol=@home,$o LABEL=system /mnt/home
+mount -t btrfs -o subvol=@swap,$o_swap LABEL=system /mnt/swap
+mount -o X-mount.mkdir LABEL=EFI /mnt/boot
 echo "Installing packages..."
 pacstrap /mnt base base-devel linux linux-firmware btrfs-progs man-db man-pages neovim networkmanager intel-ucode
 echo "Configuring..."
-genfstab -L -p /mnt >> /mnt/etc/fstab &> /dev/null
+genfstab -L -p /mnt >> /mnt/etc/fstab
 echo $hsname > /mnt/etc/hostname
 echo "127.0.0.1	localhost
 ::1		localhost
