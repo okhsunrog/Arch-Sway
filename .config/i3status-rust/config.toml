@@ -20,10 +20,12 @@ sway_kb_identifier = "1:1:AT_Translated_Set_2_keyboard"
 
 [[block]]
 block = "backlight"
+step_width = 1
 
 [[block]]
 block = "sound"
 on_click = "pavucontrol"
+step_width = 1
 
 [[block]]
 block = "battery"

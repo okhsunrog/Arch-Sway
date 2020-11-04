@@ -7,6 +7,9 @@ set $menu bemenu-run
 bindsym --to-code $mod+Shift+n exec "/home/$USER/scripts/dismiss_n_a.sh"
 bindsym --to-code $mod+n exec "/home/$USER/scripts/dismiss_n.sh"
 
+#Choose color on the screen and copy HEX to clipboard
+bindsym --to-code $mod+g exec "/home/$USER/scripts/choose_color.sh"
+
 #Open clipboard manager
 bindsym --to-code $mod+c exec "pkill wofi || clipman pick -t wofi"
 
@@ -21,8 +24,6 @@ bindsym --to-code $mod+Shift+c exec "clipman clear --all"
 bindsym --to-code $mod+s exec "pkill wofi || wofi"
 #2
 bindsym --to-code $mod+d exec $menu
-
-
 
 # Lock
 bindsym --to-code $mod+l exec "/home/$USER/scripts/lock.sh"
@@ -41,7 +42,7 @@ bindsym --to-code $mod+q kill
 floating_modifier $mod normal
 
 # Reload the configuration file
-bindsym --to-code $mod+Shift+e exec "/home/$USER/scripts/reload.sh"
+bindsym --to-code $mod+Shift+e reload
 
 # Power menu
 bindsym --to-code $mod+e exec swaynag -t warning -m 'Power menu' -B 'Exit' 'swaymsg exit' -B 'Power off' 'poweroff' -B 'Reboot' 'reboot' -B 'Sleep' 'systemctl suspend' -B 'Hibernate' 'systemctl hibernate'
@@ -126,11 +127,11 @@ bindsym $mod+space focus mode_toggle
 # You can send windows there and get them back later.
 
 # Move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym --to-code $mod+Shift+x move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
+bindsym --to-code $mod+x scratchpad show
 
 # Resizing containers:
 bindsym --to-code $mod+r mode "resize"

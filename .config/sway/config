@@ -72,6 +72,5 @@ gaps inner 5
 gaps outer 3
 titlebar_border_thickness 0
 
-
 include ~/.config/sway/*
 include /etc/sway/config.d/*
