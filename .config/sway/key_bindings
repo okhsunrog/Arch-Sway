@@ -1,7 +1,6 @@
 # mod is 'Windows' key
 set $mod Mod4
 set $term alacritty
-set $menu bemenu-run
 
 #Notifications dismiss
 bindsym --to-code $mod+Shift+n exec "/home/$USER/scripts/dismiss_n_a.sh"
@@ -23,7 +22,7 @@ bindsym --to-code $mod+Shift+c exec "clipman clear --all"
 #1
 bindsym --to-code $mod+s exec "pkill wofi || wofi"
 #2
-bindsym --to-code $mod+d exec $menu
+bindsym --to-code $mod+d exec "/home/$USER/scripts/menu.sh"
 
 # Lock
 bindsym --to-code $mod+l exec "/home/$USER/scripts/lock.sh"
@@ -46,6 +45,8 @@ bindsym --to-code $mod+Shift+e reload
 
 # Power menu
 bindsym --to-code $mod+e exec swaynag -t warning -m 'Power menu' -B 'Exit' 'swaymsg exit' -B 'Power off' 'poweroff' -B 'Reboot' 'reboot' -B 'Sleep' 'systemctl suspend' -B 'Hibernate' 'systemctl hibernate'
+
+bindsym --to-code $mod+h sticky toggle
 
 # Moving around:
 #
