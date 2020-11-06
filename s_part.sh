@@ -11,7 +11,7 @@ FILES=""
 HOOKS="base udev autodetect modconf block encrypt btrfs filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
 mkinitcpio -P
 echo "Installing additional software..."
-pacman -S snapper wf-recorder gammastep imagemagick ttf-font-awesome powerline-fonts speedtest-cli upower bluez-utils bluez tk python-pip swayidle ttf-dejavu gnu-free-fonts noto-fonts noto-fonts-extra ttf-hack noto-fonts-emoji zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps clementine udiskie udisks2 htop gnome-icon-theme gnome-icon-theme-extras qt5ct meson ninja scdoc brightnessctl playerctl mako acpi qbittorrent virtualbox virtualbox-host-modules-arch gimp code libreoffice-fresh xorg-server-xwayland ffmpeg youtube-dl jdk14-openjdk jdk8-openjdk mpv imv tmux openssh wget fish pulseaudio pulseaudio-alsa firefox bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans wofi git sway alacritty neofetch pavucontrol ranger grim slurp jq wl-clipboard ttf-fira-code neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav earlyoom --noconfirm
+pacman -S cronie snapper wf-recorder gammastep imagemagick ttf-font-awesome powerline-fonts speedtest-cli upower bluez-utils bluez tk python-pip swayidle ttf-dejavu gnu-free-fonts noto-fonts noto-fonts-extra ttf-hack noto-fonts-emoji zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps clementine udiskie udisks2 htop gnome-icon-theme gnome-icon-theme-extras qt5ct meson ninja scdoc brightnessctl playerctl mako acpi qbittorrent virtualbox virtualbox-host-modules-arch gimp code libreoffice-fresh xorg-server-xwayland ffmpeg youtube-dl jdk14-openjdk jdk8-openjdk mpv imv tmux openssh wget fish pulseaudio pulseaudio-alsa firefox bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans wofi git sway alacritty neofetch pavucontrol ranger grim slurp jq wl-clipboard ttf-fira-code neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav earlyoom --noconfirm
 echo "keyserver hkp://pool.sks-keyservers.net
 keyserver https://sks-keyservers.net/
 keyserver https://keys.mailvelope.com/
@@ -36,6 +36,7 @@ echo 'ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}
 su - $uname -c 'set fish_greeting'
 systemctl enable earlyoom
 systemctl enable bluetooth.service
+systemctl enable cronie.service
 mkdir -p /home/$uname/real_home/Pictures/screenshots
 echo "Installing yay..."
 git clone https://aur.archlinux.org/yay-bin.git /tmp/aurbuild
