@@ -26,9 +26,9 @@ btrfs subvolume create /mnt/@log
 umount -R /mnt
 mount -t btrfs -o subvol=@,$o LABEL=system /mnt
 mount -t btrfs -o subvol=@home,$o LABEL=system /mnt/home
-mount -t btrfs -o subvol=@swap,$ LABEL=system /mnt/swap
-mount -t btrfs -o subvol=@snapshots,$ LABEL=system /mnt/.shapshots
-mount -t btrfs -o subvol=@log,$ LABEL=system /mnt/var/log
+mount -t btrfs -o subvol=@swap,$o LABEL=system /mnt/swap
+mount -t btrfs -o subvol=@snapshots,$o LABEL=system /mnt/.snapshots
+mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot
 chmod 750 /mnt/.shapshots
 echo "Installing packages..."
