@@ -61,8 +61,6 @@ TERMINAL=alacritty
 " >> /etc/environment
 echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/master/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
-udevadm control --reload-rules
-udevadm trigger
 echo "Enter your swapfile size in GiB"
 read -p 'Swap size : ' swsizeG
 echo "Creating swap file..."
