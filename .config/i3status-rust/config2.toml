@@ -20,6 +20,7 @@ on_collapsed_click = "spotify"
 marquee = false
 max_width = 30
 smart_trim = true
+player = "spotify"
 
 [[block]]
 block = "keyboard_layout"

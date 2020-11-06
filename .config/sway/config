@@ -3,18 +3,18 @@ exec mako
 exec udiskie
 exec wl-paste -t text --watch clipman store
 exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
-#exec gammastep -m wayland -l 55.7:37.6 -t 6500:4000
+exec gammastep -m wayland -l 55.7:37.6 -t 6500:4500
 
 #Output configuration
 output eDP-1 {
 	res 1366x768@59.973000Hz
-	background /home/$USER//Pictures/Wallpapers/desktop.jpg fill
+	background /home/$USER/real_home/Pictures/Wallpapers/desktop.jpg fill
 	pos 0 0
 }
 
 output HDMI-A-1 {
         res 1920x1080@74.986000Hz
-        background /home/$USER//Pictures/Wallpapers/desktop.jpg fill
+        background /home/$USER/real_home/Pictures/Wallpapers/desktop.jpg fill
 	pos 1366 0
 }
 
@@ -43,10 +43,14 @@ input "*" {
 	xkb_layout "us,ru"
         xkb_options "grp:caps_toggle"
 	xkb_numlock enabled
-	dwt enabled
-	middle_emulation enabled
-	tap enabled
 	}
+
+input 1267:91:Elan_Touchpad {
+#    events disabled_on_external_mouse
+    middle_emulation enabled
+    tap enabled
+#   dwt enabled
+}
 
 
 #Bars configuration
@@ -103,7 +107,12 @@ for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="nmtui"] floating enable
 for_window [title="Device connected - Mozilla Firefox"] floating enable
 for_window [title="Picture-in-Picture" app_id="firefox"] floating enable
-for_window [title="win0"] floating enable
+for_window [title="Picture in picture"] floating enable
+for_window [title="Picture-in-Picture" app_id="firefox"] floating enable
+for_window [title="Picture in picture"] sticky enable
+for_window [title="win0"] sticky enable
+for_window [title="Open Files"] floating enable
+
 default_floating_border pixel 3
 default_border pixel 2
 smart_gaps on

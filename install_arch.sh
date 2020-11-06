@@ -16,17 +16,21 @@ mkfs.fat -F32 -n EFI /dev/disk/by-partlabel/EFI
 echo $cryptpass | cryptsetup luksFormat --align-payload=8192 -s 256 -c aes-xts-plain64 /dev/disk/by-partlabel/cryptsystem
 echo $cryptpass | cryptsetup open /dev/disk/by-partlabel/cryptsystem system
 mkfs.btrfs --force --label system /dev/mapper/system
-o_swap=defaults,X-mount.mkdir,ssd,discard=async,noatime,nodiratime,space_cache
-o=$o_swap,commit=120,compress=zstd
+o=commit=120,compress=zstd,defaults,X-mount.mkdir,ssd,discard=async,noatime,nodiratime,space_cache
 mount -t btrfs LABEL=system /mnt
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@swap
+btrfs subvolume create /mnt/@snapshots
+btrfs subvolume create /mnt/@log
 umount -R /mnt
 mount -t btrfs -o subvol=@,$o LABEL=system /mnt
 mount -t btrfs -o subvol=@home,$o LABEL=system /mnt/home
-mount -t btrfs -o subvol=@swap,$o_swap LABEL=system /mnt/swap
+mount -t btrfs -o subvol=@swap,$ LABEL=system /mnt/swap
+mount -t btrfs -o subvol=@snapshots,$ LABEL=system /mnt/.shapshots
+mount -t btrfs -o subvol=@log,$ LABEL=system /mnt/var/log
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot
+chmod 750 /mnt/.shapshots
 echo "Installing packages..."
 pacstrap /mnt base base-devel linux linux-firmware btrfs-progs man-db man-pages neovim networkmanager
 echo "Configuring..."
