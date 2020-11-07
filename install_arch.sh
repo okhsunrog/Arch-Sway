@@ -6,7 +6,7 @@ rmmod pcspkr
 timedatectl set-ntp true
 pacman -Sy
 pacman -S hdparm --noconfirm
-systemctl syspend
+systemctl suspend
 hdparm --user-master u --security-set-pass 123 /dev/sda
 hdparm --user-master u --security-erase 123 /dev/sda
 echo "Configuring disks..."
