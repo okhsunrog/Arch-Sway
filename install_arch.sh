@@ -63,12 +63,14 @@ echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 cp s_part.sh /mnt/
 cp after_install.sh /mnt/
 cp btrfs_map_physical.c /mnt/
+cp configure_snapshots.sh /mnt/
 cp -r .config /mnt/
 cp -r .local /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/s_part.sh
+chmod +x /mnt/configure_snapshots.sh
 arch-chroot /mnt ./s_part.sh
 rm /mnt/s_part.sh
 

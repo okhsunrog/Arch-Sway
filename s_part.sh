@@ -92,6 +92,7 @@ rm -rf /home/$uname/.config
 mv /.local /home/$uname/.local
 mv /.config /home/$uname/.config
 mv /after_install.sh /home/$uname/
+mv /configure_snapshots.sh /home/$uname/
 mv /scripts /home/$uname/scripts
 chmod +x /home/$uname/scripts/*
 chown -R $uname:$uname /home/$uname
