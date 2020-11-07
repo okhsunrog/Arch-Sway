@@ -53,7 +53,7 @@ mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot
 chmod 750 /mnt/.shapshots
 echo "Installing packages..."
-pacstrap /mnt base base-devel linux linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
+pacstrap /mnt base base-devel linux linux-firmware intel-ucode snapper btrfs-progs man-db man-pages neovim networkmanager
 echo "Configuring..."
 genfstab -L -p /mnt >> /mnt/etc/fstab
 echo $hsname > /mnt/etc/hostname
@@ -65,14 +65,12 @@ echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 cp s_part.sh /mnt/
 cp after_install.sh /mnt/
 cp btrfs_map_physical.c /mnt/
-cp configure_snapshots.sh /mnt/
 cp -r .config /mnt/
 cp -r .local /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/s_part.sh
-chmod +x /mnt/configure_snapshots.sh
 arch-chroot /mnt ./s_part.sh
 rm /mnt/s_part.sh
 
