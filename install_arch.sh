@@ -4,6 +4,11 @@ read -p 'Enter disk encryption password: ' cryptpass
 read -p 'Enter your hostname (name of your PC): ' hsname
 rmmod pcspkr
 timedatectl set-ntp true
+pacman -Sy
+pacman -S hdparm --noconfirm
+systemctl syspend
+hdparm --user-master u --security-set-pass 123 /dev/sda
+hdparm --user-master u --security-erase 123 /dev/sda
 echo "Configuring disks..."
 cat <<EOF | gdisk /dev/sda
 o
@@ -11,7 +16,7 @@ y
 n
 1
 
-300
+550
 ef00
 c
 EFI
