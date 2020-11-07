@@ -1,6 +1,8 @@
 #!/bin/bash
 echo "Stay near the pc, you will have to enter root password for a few times"
 sudo rfkill unblock all &> /dev/null
+echo "Updating mirrors"
+sudo reflector --verbose --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
 echo "Setting timezone and time sync..."
 timedatectl set-timezone Europe/Moscow
 timedatectl set-ntp true
