@@ -4,13 +4,6 @@ read -p 'Enter disk encryption password: ' cryptpass
 read -p 'Enter your hostname (name of your PC): ' hsname
 rmmod pcspkr
 timedatectl set-ntp true
-pacman -Sy
-pacman -S hdparm --noconfirm
-systemctl suspend
-sleep 3
-hdparm --user-master u --security-set-pass 123 /dev/sda
-sleep 2
-hdparm --user-master u --security-erase 123 /dev/sda
 echo "Configuring disks..."
 sleep 3
 cat <<EOF | gdisk /dev/sda
@@ -58,7 +51,7 @@ mount -o X-mount.mkdir LABEL=EFI /mnt/boot
 chmod 750 /mnt/.snapshots
 chmod 750 /mnt/home/.snapshots
 echo "Installing packages..."
-pacstrap /mnt base base-devel linux linux-firmware intel-ucode snapper btrfs-progs man-db man-pages neovim networkmanager
+pacstrap /mnt base base-devel linux linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
 echo "Configuring..."
 genfstab -L -p /mnt >> /mnt/etc/fstab
 echo $hsname > /mnt/etc/hostname
@@ -74,8 +67,10 @@ cp -r .config /mnt/
 cp -r .local /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
+cp configure_snapshots.sh /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/s_part.sh
+chmod +x /mnt/
 arch-chroot /mnt ./s_part.sh
 rm /mnt/s_part.sh
 

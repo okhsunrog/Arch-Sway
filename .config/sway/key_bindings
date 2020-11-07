@@ -1,6 +1,6 @@
 # mod is 'Windows' key
 set $mod Mod4
-set $term alacritty
+set $term kitty
 
 #Toggle touchpad
 bindsym --to-code $mod+y input 1267:91:Elan_Touchpad events disabled
