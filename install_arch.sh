@@ -7,16 +7,19 @@ timedatectl set-ntp true
 pacman -Sy
 pacman -S hdparm --noconfirm
 systemctl suspend
+sleep 3
 hdparm --user-master u --security-set-pass 123 /dev/sda
+sleep 2
 hdparm --user-master u --security-erase 123 /dev/sda
 echo "Configuring disks..."
+sleep 3
 cat <<EOF | gdisk /dev/sda
 o
 y
 n
 1
 
-550
++550M
 ef00
 c
 EFI
@@ -31,6 +34,7 @@ cryptsystem
 w
 y
 EOF
+sleep 3
 mkfs.fat -F32 -n EFI /dev/disk/by-partlabel/EFI
 echo $cryptpass | cryptsetup luksFormat --align-payload=8192 -s 256 -c aes-xts-plain64 /dev/disk/by-partlabel/cryptsystem
 echo $cryptpass | cryptsetup open /dev/disk/by-partlabel/cryptsystem system
@@ -51,7 +55,8 @@ mount -t btrfs -o subvol=@snapshots_home,$o LABEL=system /mnt/home/.snapshots
 mount -t btrfs -o subvol=@snapshots_root,$o LABEL=system /mnt/.snapshots
 mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot
-chmod 750 /mnt/.shapshots
+chmod 750 /mnt/.snapshots
+chmod 750 /mnt/home/.snapshots
 echo "Installing packages..."
 pacstrap /mnt base base-devel linux linux-firmware intel-ucode snapper btrfs-progs man-db man-pages neovim networkmanager
 echo "Configuring..."
