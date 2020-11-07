@@ -40,13 +40,15 @@ mount -t btrfs LABEL=system /mnt
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@swap
-btrfs subvolume create /mnt/@snapshots
+btrfs subvolume create /mnt/@snapshots_root
+btrfs subvolume create /mnt/@snapshots_home
 btrfs subvolume create /mnt/@log
 umount -R /mnt
 mount -t btrfs -o subvol=@,$o LABEL=system /mnt
 mount -t btrfs -o subvol=@home,$o LABEL=system /mnt/home
 mount -t btrfs -o subvol=@swap,$o LABEL=system /mnt/swap
-mount -t btrfs -o subvol=@snapshots,$o LABEL=system /mnt/.snapshots
+mount -t btrfs -o subvol=@snapshots_home,$o LABEL=system /mnt/home/.snapshots
+mount -t btrfs -o subvol=@snapshots_root,$o LABEL=system /mnt/.snapshots
 mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot
 chmod 750 /mnt/.shapshots
