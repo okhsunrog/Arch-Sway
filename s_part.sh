@@ -69,7 +69,7 @@ QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 STUDIO_JDK=/usr/lib/jvm/java-14-openjdk
 TDESKTOP_DISABLE_GTK_INTEGRATION=1
 GRIM_DEFAULT_DIR=/home/$uname/real_home/Pictures/screenshots
-TERMINAL=alacritty
+TERMINAL=kitty
 " >> /etc/environment
 echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/master/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
