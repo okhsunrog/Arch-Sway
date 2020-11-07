@@ -9,7 +9,7 @@ reflector --latest 250 --protocol https --sort rate --save /etc/pacman.d/mirrorl
 echo "Configuring disks..."
 sgdisk /dev/sda -o
 sgdisk --clear \
-         --new=1:0:+100MiB --typecode=1:ef00 --change-name=1:EFI \
+         --new=1:0:+300MiB --typecode=1:ef00 --change-name=1:EFI \
          --new=2:0:0       --typecode=2:8300 --change-name=2:cryptsystem \
            /dev/sda
 mkfs.fat -F32 -n EFI /dev/disk/by-partlabel/EFI

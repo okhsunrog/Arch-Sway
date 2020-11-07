@@ -8,6 +8,7 @@ else
 umount -R /.snapshots 
 rm -r /.snapshots
 snapper -c root create-config /
+snapper -c home create-config /home
 mount -av
-echo "Don't forget to configure Automatic timeline snapshots in /etc/snapper/configs/root"
+echo "Don't forget to configure Automatic timeline snapshots in /etc/snapper/configs/{root,home}"
 fi

@@ -112,6 +112,8 @@ for_window [title="Picture-in-Picture" app_id="firefox"] floating enable
 for_window [title="Picture in picture"] sticky enable
 for_window [title="win0"] sticky enable
 for_window [title="Open Files"] floating enable
+for_window [title="Save File"] floating enable
+
 
 default_floating_border pixel 3
 default_border pixel 2
