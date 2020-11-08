@@ -48,8 +48,6 @@ mount -t btrfs -o subvol=@snapshots_home,$o LABEL=system /mnt/home/.snapshots
 mount -t btrfs -o subvol=@snapshots_root,$o LABEL=system /mnt/.snapshots
 mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot
-chmod 750 /mnt/.snapshots
-chmod 750 /mnt/home/.snapshots
 echo "Installing packages..."
 pacstrap /mnt base base-devel linux linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
 echo "Configuring..."

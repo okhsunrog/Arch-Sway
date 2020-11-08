@@ -11,7 +11,13 @@ rm -r /.snapshots
 rm -r /home/.snapshots
 snapper -c root create-config /
 snapper -c home create-config /home
-mount -av
+btrfs subvolume delete /.snapshots
+btrfs subvolume delete /home/.snapshots
+mkdir /.snapshots
+mkdir /home/.snapshots
+mount -a
+chmod 750 /.snapshots
+chmod 750 /home/.snapshots
 sed -i 's/TIMELINE_LIMIT_YEARLY="10"/TIMELINE_LIMIT_YEARLY="0"/g' /etc/snapper/configs/root
 sed -i 's/TIMELINE_LIMIT_MONTHLY="10"/TIMELINE_LIMIT_MONTHLY="0"/g' /etc/snapper/configs/root
 sed -i 's/TIMELINE_LIMIT_DAILY="10"/TIMELINE_LIMIT_DAILY="3"/g' /etc/snapper/configs/root
