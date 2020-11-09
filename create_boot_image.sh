@@ -1,6 +1,5 @@
 #!/bin/bash
 #Run as root!
-#If your usb stick isn't /dev/sdb don't forget to edit!
 
 if [ "$(whoami)" != "root" ]; then
         echo "Script must be run as root!"
@@ -17,12 +16,12 @@ rm -rf /tmp/archiso-tmp
 mkdir /root/out
 echo "Creating image..."
 mkarchiso -v -w /tmp/archiso-tmp -o /root/out /root/archlive
-umount /dev/sdb*
-umount /dev/sdb
-echo "Flashing image..."
 pathiso="/root/out/"$(ls /root/out)
-dd if=$pathiso of=/dev/sdb bs=4M status=progress oflag=sync
-rm -rf /root/out /root/archlive
+tmppath="/tmp/"$(ls /root/out)
+rm /tmp/arch*.iso
+cp $pathiso /tmp/
+rm -rf /root/archlive /root/out
 echo "Finished"
+echo "The image's path is: $tmppath"
 fi
 
