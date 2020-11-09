@@ -11,6 +11,7 @@ cp -r /usr/share/archiso/configs/releng /root/archlive
 rm -rf /root/archlive/airootfs/root
 git clone https://github.com/danila7/arch_btrfs_enc.git /root/archlive/airootfs/root/ 
 rm /root/archlive/airootfs/root/create_boot_image.sh
+rm /root/archlive/airootfs/root/flash_boot_image.sh
 rm -rf /root/archlive/airootfs/root/.git
 rm -rf /tmp/archiso-tmp
 mkdir /root/out

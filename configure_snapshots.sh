@@ -1,10 +1,9 @@
-#!/bin/bash                                                                                                                                                                                     
-#Run as root!                                                                                                                                                                                   
-                                                                                                                                                                                                
-if [ "$(whoami)" != "root" ]; then                                                                                                                                                              
-        echo "Script must be run as root!"                                                                                                                                                      
-        exit 255                                                                                                                                                                                
-else       
+#!/bin/bash                                                                                 
+#Run as root!
+if [ "$(whoami)" != "root" ]; then
+echo "Script must be run as root!"
+exit 255
+else
 umount -R /.snapshots
 umount -R /home/.snapshots
 rm -r /.snapshots
