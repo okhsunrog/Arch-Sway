@@ -21,7 +21,7 @@ pathiso="/root/out/"$(ls /root/out)
 tmppath="/tmp/"$(ls /root/out)
 rm /tmp/arch*.iso
 cp $pathiso /tmp/
-rm -rf /root/archlive /root/out
+rm -rf /root/archlive /root/out /tmp/archiso-tmp
 echo "Finished"
 echo "The image's path is: $tmppath"
 fi
