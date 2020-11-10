@@ -68,7 +68,7 @@ cp -r scripts /mnt/
 cp configure_snapshots.sh /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/s_part.sh
-chmod +x /mnt/
+chmod +x /mnt/configure_snapshots.sh
 arch-chroot /mnt ./s_part.sh
 rm /mnt/s_part.sh
 

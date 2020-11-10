@@ -14,16 +14,20 @@ Target = linux*
 [Action]
 Depends = rsync
 Description = Backing up /boot...
-When = PreTransaction
+When = PostTransaction
 Exec = /usr/bin/rsync -a --delete /boot /.bootbackup" > /usr/share/libalpm/hooks/50_bootbackup.hook
 rm /etc/mkinitcpio.conf
+sed -i 's/# deny = 3/deny = 0/g' /etc/security/faillock.conf
+sed -i 's/CFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"/CFLAGS="-march=native -O2 -pipe -fno-plt"/g' /etc/makepkg.conf
+sed -i 's/CXXFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"/CXXFLAGS="-march=native -O2 -pipe -fno-plt"/g' /etc/makepkg.conf
+sed -i 's/#RUSTFLAGS="-C opt-level=2"/RUSTFLAGS="-C opt-level=2 -C target-cpu=native"/g' /etc/makepkg.conf
 echo 'MODULES=""
 BINARIES=""
 FILES=""
 HOOKS="base udev autodetect modconf block encrypt btrfs filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
 mkinitcpio -P
 echo "Installing additional software..."
-pacman -S terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick ttf-font-awesome powerline-fonts speedtest-cli upower bluez-utils bluez tk python-pip swayidle ttf-dejavu gnu-free-fonts noto-fonts noto-fonts-extra ttf-hack noto-fonts-emoji zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps clementine udiskie udisks2 htop gnome-icon-theme gnome-icon-theme-extras qt5ct meson ninja scdoc brightnessctl playerctl mako acpi qbittorrent virtualbox virtualbox-host-modules-arch gimp code libreoffice-fresh xorg-server-xwayland ffmpeg youtube-dl jdk14-openjdk jdk8-openjdk mpv imv tmux openssh wget fish pulseaudio pulseaudio-alsa firefox bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans wofi git sway kitty neofetch pavucontrol ranger grim slurp jq wl-clipboard ttf-fira-code neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav earlyoom --noconfirm
+pacman -S  xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick ttf-font-awesome powerline-fonts speedtest-cli upower bluez-utils bluez tk python-pip swayidle ttf-dejavu gnu-free-fonts noto-fonts noto-fonts-extra ttf-hack noto-fonts-emoji zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps clementine udiskie udisks2 htop gnome-icon-theme gnome-icon-theme-extras qt5ct meson ninja scdoc brightnessctl playerctl mako acpi qbittorrent virtualbox virtualbox-host-modules-arch gimp code libreoffice-fresh xorg-server-xwayland ffmpeg youtube-dl jdk14-openjdk jdk8-openjdk mpv imv tmux openssh wget fish pulseaudio pulseaudio-alsa firefox bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans wofi git sway kitty neofetch pavucontrol ranger grim slurp jq wl-clipboard ttf-fira-code neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav earlyoom --noconfirm
 echo "LOCALE=en_US.UTF-8
 KEYMAP=ru
 FONT=ter-u16b
