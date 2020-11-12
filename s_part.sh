@@ -21,13 +21,16 @@ sed -i 's/# deny = 3/deny = 0/g' /etc/security/faillock.conf
 sed -i 's/CFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"/CFLAGS="-march=native -O2 -pipe -fno-plt"/g' /etc/makepkg.conf
 sed -i 's/CXXFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"/CXXFLAGS="-march=native -O2 -pipe -fno-plt"/g' /etc/makepkg.conf
 sed -i 's/#RUSTFLAGS="-C opt-level=2"/RUSTFLAGS="-C opt-level=2 -C target-cpu=native"/g' /etc/makepkg.conf
+sed -i 's/#HandleLidSwitch=suspend/HandleLidSwitch=suspend-then-hibernate/g' /etc/systemd/logind.conf
+sed -i 's/#HandleLidSwitchExternalPower=suspend/HandleLidSwitchExternalPower=suspend-then-hibernate/g' /etc/systemd/logind.conf
+sed -i 's/#HibernateDelaySec=180min/HibernateDelaySec=120min/g' /etc/systemd/sleep.conf 
 echo 'MODULES=""
 BINARIES=""
 FILES=""
 HOOKS="base udev autodetect modconf block encrypt btrfs filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
 mkinitcpio -P
 echo "Installing additional software..."
-pacman -S  xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps clementine udiskie udisks2 htop gnome-icon-theme qt5ct meson ninja scdoc brightnessctl playerctl mako qbittorrent virtualbox virtualbox-host-modules-arch gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa firefox bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans wofi git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav earlyoom --noconfirm
+pacman -S kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps clementine udiskie udisks2 htop gnome-icon-theme qt5ct meson ninja scdoc brightnessctl playerctl mako qbittorrent virtualbox virtualbox-host-modules-arch gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa firefox bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav earlyoom --noconfirm
 echo "LOCALE=en_US.UTF-8
 KEYMAP=ru
 FONT=ter-u16b
@@ -80,7 +83,7 @@ QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 STUDIO_JDK=/usr/lib/jvm/java-14-openjdk
 TDESKTOP_DISABLE_GTK_INTEGRATION=1
 GRIM_DEFAULT_DIR=/home/$uname/real_home/Pictures/screenshots
-TERMINAL=alacritty
+TERMINAL=kitty
 " >> /etc/environment
 echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/master/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
@@ -109,14 +112,41 @@ linux           /vmlinuz-linux
 initrd          /intel-ucode.img
 initrd          /initramfs-linux.img
 options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rd.luks.options=discard rw" > /boot/loader/entries/arch.conf
+wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+mv install.sh /home/$uname/
+su - $uname -c 'sh install.sh'
+rm /home/$uname/install.sh
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/$uname/.oh-my-zsh/custom/themes/powerlevel10k
+git clone https://github.com/zsh-users/zsh-completions /home/$uname/.oh-my-zsh/custom/plugins/zsh-completions
+git clone https://github.com/zsh-users/zsh-autosuggestions /home/$uname/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+echo "if [ "$(tty)" = "/dev/tty1" ]; then
+    ./after_install.sh
+fi" > /home/$uname/.zprofile 
 mv /Wallpapers /home/$uname/real_home/Pictures/Wallpapers
 rm -rf /home/$uname/.local
 rm -rf /home/$uname/.config
 mv /.local /home/$uname/.local
 mv /.config /home/$uname/.config
 mv /after_install.sh /home/$uname/
+mv /.zshrc /home/$uname/
 mv /scripts /home/$uname/scripts
 mv /configure_snapshots.sh /home/$uname/
 chmod +x /home/$uname/scripts/*
 chown -R $uname:$uname /home/$uname
 mkdir /media
+
+umount -R /.snapshots
+umount -R /home/.snapshots
+rm -r /.snapshots
+rm -r /home/.snapshots
+snapper -c root create-config /
+snapper -c home create-config /home
+btrfs subvolume delete /.snapshots
+btrfs subvolume delete /home/.snapshots
+mkdir /.snapshots
+mkdir /home/.snapshots
+mount -a
+chmod 750 /.snapshots
+chmod 750 /home/.snapshots
+sed -i 's/TIMELINE_CREATE="yes"/TIMELINE_CREATE="no"/g' /etc/snapper/configs/root
+sed -i 's/TIMELINE_CREATE="yes"/TIMELINE_CREATE="no"/g' /etc/snapper/configs/home

@@ -63,7 +63,7 @@ font pango:DejaVu Sans Mono, Font Awesome 5 Free
         separator #666666
         background #222222
         statusline #dddddd
-        focused_workspace #0088CC #0088CC #ffffff
+        focused_workspace #9CD45B #9CD45B #ffffff
         active_workspace #333333 #333333 #ffffff
         inactive_workspace #333333 #333333 #888888
         urgent_workspace #2f343a #900000 #ffffff
@@ -71,7 +71,7 @@ font pango:DejaVu Sans Mono, Font Awesome 5 Free
 }
 
 bar {
-font pango:DejaVu Sans Mono, Font Awesome 5 Free
+font pango:DejaVu Sans Mono
     position top
     output HDMI-A-1
     status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config2.toml
