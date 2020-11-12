@@ -18,8 +18,6 @@ output HDMI-A-1 {
 	pos 1366 0
 }
 
-#Uncomment to have different layouts per window
-exec "/home/$USER/scripts/keyboard-layout-per-window.py"
 
 workspace 1
 

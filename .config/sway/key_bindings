@@ -34,6 +34,9 @@ bindsym --to-code $mod+l exec "/home/$USER/scripts/lock.sh"
 # Start a terminal
 bindsym --to-code $mod+t exec $term
 
+#Start a floating terminal
+bindsym --to-code $mod+Shift+t exec "/home/$USER/scripts/floating.sh kitty"
+
 # Close focused window
 bindsym --to-code $mod+q kill
 
@@ -48,7 +51,7 @@ floating_modifier $mod normal
 bindsym --to-code $mod+Shift+e reload
 
 # Power menu
-bindsym --to-code $mod+e exec swaynag -t warning -m 'Power menu' -B 'Exit' 'swaymsg exit' -B 'Power off' 'poweroff' -B 'Reboot' 'reboot' -B 'Sleep' 'systemctl suspend' -B 'Hibernate' 'systemctl hibernate'
+bindsym --to-code $mod+e exec swaynag -t warning -m 'Power menu' -B 'Exit' 'swaymsg exit' -B 'Power off' 'poweroff' -B 'Reboot' 'reboot' -B 'Sleep' 'systemctl suspend' -B 'Hibernate' 'systemctl hibernate' -B 'Suspend then hibernate' 'systemctl suspend-then-hibernate'
 
 bindsym --to-code $mod+h sticky toggle
 
