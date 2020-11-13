@@ -66,14 +66,11 @@ cp -r .config /mnt/
 cp -r .local /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
-cp configure_snapshots.sh /mnt/
+cp .p10k.zsh /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/s_part.sh
-chmod +x /mnt/configure_snapshots.sh
 arch-chroot /mnt ./s_part.sh
 rm /mnt/s_part.sh
+sleep 1
+reboot
 
-echo "Installation is complete! Now you can reboot to you system. 
-After rebooting launch script after_install.sh placed in your home directory to install some important components.
-You can delete the script after that.
-For finishing neovim configuration type command    :PlugInstall        in nvim"

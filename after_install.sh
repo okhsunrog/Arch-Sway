@@ -21,6 +21,25 @@ echo "# If running from tty1 start sway
 if [ "$(tty)" = "/dev/tty1" ]; then
     exec sway
 fi" > ~/.zprofile
+sudo umount -R /.snapshots
+sudo umount -R /home/.snapshots
+sudo rm -r /.snapshots
+sudo rm -r /home/.snapshots
+sudo snapper -c root create-config /
+sudo snapper -c home create-config /home
+sudo btrfs subvolume delete /.snapshots
+sudo btrfs subvolume delete /home/.snapshots
+sudo mkdir /.snapshots
+sudo mkdir /home/.snapshots
+sudo mount -a
+sudo chmod 750 /.snapshots
+sudo chmod 750 /home/.snapshots
+sudo sed -i 's/TIMELINE_CREATE="yes"/TIMELINE_CREATE="no"/g' /etc/snapper/configs/root
+sudo sed -i 's/TIMELINE_CREATE="yes"/TIMELINE_CREATE="no"/g' /etc/snapper/configs/home
+sudo mkdir /.bootbackup
+sudo cp -r /boot /.bootbackup/
+sudo snapper -c root create --description "After installation"
+sudo snapper -c home create --description "After installation"
 sleep 2
 rm "after_install.sh"
 reboot
