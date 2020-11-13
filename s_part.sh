@@ -114,7 +114,7 @@ initrd          /initramfs-linux.img
 options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rd.luks.options=discard rw" > /boot/loader/entries/arch.conf
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 mv install.sh /home/$uname/
-su - $uname -c 'sh install.sh'
+su - $uname -c 'sh install.sh --unattended'
 rm /home/$uname/install.sh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/$uname/.oh-my-zsh/custom/themes/powerlevel10k
 git clone https://github.com/zsh-users/zsh-completions /home/$uname/.oh-my-zsh/custom/plugins/zsh-completions
@@ -135,18 +135,3 @@ chmod +x /home/$uname/scripts/*
 chown -R $uname:$uname /home/$uname
 mkdir /media
 
-umount -R /.snapshots
-umount -R /home/.snapshots
-rm -r /.snapshots
-rm -r /home/.snapshots
-snapper -c root create-config /
-snapper -c home create-config /home
-btrfs subvolume delete /.snapshots
-btrfs subvolume delete /home/.snapshots
-mkdir /.snapshots
-mkdir /home/.snapshots
-mount -a
-chmod 750 /.snapshots
-chmod 750 /home/.snapshots
-sed -i 's/TIMELINE_CREATE="yes"/TIMELINE_CREATE="no"/g' /etc/snapper/configs/root
-sed -i 's/TIMELINE_CREATE="yes"/TIMELINE_CREATE="no"/g' /etc/snapper/configs/home

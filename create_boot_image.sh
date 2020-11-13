@@ -16,13 +16,10 @@ rm -rf /root/archlive/airootfs/root/.git
 rm -rf /tmp/archiso-tmp
 mkdir /root/out
 echo "Creating image..."
-mkarchiso -v -w /tmp/archiso-tmp -o /root/out /root/archlive
-pathiso="/root/out/"$(ls /root/out)
-tmppath="/tmp/"$(ls /root/out)
-rm /tmp/arch*.iso
-cp $pathiso /tmp/
-rm -rf /root/archlive /root/out /tmp/archiso-tmp
+mkarchiso -v -w /tmp/archiso-tmp -o / /root/archlive
+ipath=$(ls /arch*.iso)
+rm -rf /root/archlive /tmp/archiso-tmp
 echo "Finished"
-echo "The image's path is: $tmppath"
+echo "The image's path is: $ipath"
 fi
 

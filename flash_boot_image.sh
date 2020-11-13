@@ -9,7 +9,7 @@ else
 umount /dev/sdb*
 umount /dev/sdb
 echo "Flashing image..."
-pathiso=$(ls /tmp/arch*.iso) 
+pathiso=$(ls /arch*.iso) 
 dd if=$pathiso of=/dev/sdb bs=4M status=progress oflag=sync
 echo "Finished"
 fi

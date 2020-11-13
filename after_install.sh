@@ -16,7 +16,7 @@ cp /usr/share/applications/Zoom.desktop ~/.local/share/applications
 sed -i 's+Exec=/usr/bin/zoom %U+Exec=env QT_QPA_PLATFORM=xcb /usr/bin/zoom %U+g' ~/.local/share/applications/Zoom.desktop
 update-desktop-database ~/.local/share/applications &> /dev/null
 yay -Rns vlc gnu-free-fonts --noconfirm --sudoloop
-echo "PlugInstall" > nvim -e
+nvim -c ":PlugInstall"
 echo "# If running from tty1 start sway
 if [ "$(tty)" = "/dev/tty1" ]; then
     exec sway
