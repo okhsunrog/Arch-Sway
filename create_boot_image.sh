@@ -16,6 +16,7 @@ rm -rf /root/archlive/airootfs/root/.git
 rm -rf /tmp/archiso-tmp
 mkdir /root/out
 echo "Creating image..."
+rm /arch*.iso
 mkarchiso -v -w /tmp/archiso-tmp -o / /root/archlive
 ipath=$(ls /arch*.iso)
 rm -rf /root/archlive /tmp/archiso-tmp
