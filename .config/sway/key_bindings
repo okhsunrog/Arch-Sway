@@ -34,9 +34,6 @@ bindsym --to-code $mod+l exec "/home/$USER/scripts/lock.sh"
 # Start a terminal
 bindsym --to-code $mod+t exec $term
 
-#Start a floating terminal
-bindsym --to-code $mod+Shift+t exec "/home/$USER/scripts/floating.sh kitty"
-
 # Close focused window
 bindsym --to-code $mod+q kill
 

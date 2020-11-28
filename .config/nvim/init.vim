@@ -20,3 +20,8 @@ colorscheme rigel
 let g:rigel_airline = 1
 let g:airline_theme = 'rigel'
 
+set tabstop=2
+set shiftwidth=2
+set smarttab
+set expandtab
+

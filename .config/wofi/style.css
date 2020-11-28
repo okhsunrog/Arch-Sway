@@ -9,7 +9,7 @@ window {
 
 #input {
 	padding: 5px;
-	border: 0px solid #9cd45b;
+	border: 0px solid #3481DD;
 	color: #ffffff;
 	font-size: 14px;
 	background-color: rgba(49,54,59, 1);
@@ -22,7 +22,7 @@ window {
 #scroll {
     font-size: 14px;
 	color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 #img {
@@ -34,7 +34,7 @@ window {
 }
 
 #inner-box flowboxchild:selected {
-    background-color: #9cd45b;
+    background-color: #3481DD;
     color: #ffffff;
 }
 
