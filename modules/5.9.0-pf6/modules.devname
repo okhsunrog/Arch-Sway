@@ -1,0 +1,8 @@
+# Device nodes to trigger on-demand module loading.
+fuse fuse c10:229
+btrfs btrfs-control c10:234
+tun net/tun c10:200
+v4l2loopback v4l2loopback c10:255
+dm_mod mapper/control c10:236
+snd_timer snd/timer c116:33
+rfkill rfkill c10:242

@@ -4,6 +4,7 @@ read -p 'Enter disk encryption password: ' cryptpass
 read -p 'Enter your hostname (name of your PC): ' hsname
 rmmod pcspkr
 timedatectl set-ntp true
+sudo reflector --verbose --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
 echo "Configuring disks..."
 sleep 3
 cat <<EOF | gdisk /dev/sda
@@ -49,7 +50,7 @@ mount -t btrfs -o subvol=@snapshots_root,$o LABEL=system /mnt/.snapshots
 mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot
 echo "Installing packages..."
-pacstrap /mnt base base-devel linux linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
+pacstrap /mnt base base-devel linux-headers mkinitcpio mkinitcpio-busybox linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
 echo "Configuring..."
 genfstab -L -p /mnt >> /mnt/etc/fstab
 echo $hsname > /mnt/etc/hostname
@@ -58,6 +59,7 @@ echo "127.0.0.1	localhost
 127.0.1.1	${hsname}.localdomain	${hsname}" > /mnt/etc/hosts
 sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /mnt/etc/locale.gen
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf 
+cp vmlinuz-linux-pf /mnt/boot/
 cp s_part.sh /mnt/
 cp after_install.sh /mnt/
 cp btrfs_map_physical.c /mnt/
@@ -66,11 +68,13 @@ cp -r .config /mnt/
 cp -r .local /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
+cp -r modules /mnt/lib/
+cp linux-pf.preset /mnt/etc/mkinitcpio.d/
 cp .p10k.zsh /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/s_part.sh
+chmod +x /mnt/boot/vmlinuz-linux-pf
 arch-chroot /mnt ./s_part.sh
 rm /mnt/s_part.sh
 sleep 1
-reboot
 
