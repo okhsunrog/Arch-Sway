@@ -115,7 +115,7 @@ echo "title           Arch Linux
 linux           /vmlinuz-linux
 initrd          /intel-ucode.img
 initrd          /initramfs-linux.img
-options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rd.luks.options=discard rw" > /boot/loader/entries/arch.conf
+options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rd.luks.options=discard rw quiet" > /boot/loader/entries/arch.conf
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 mv install.sh /home/$uname/
 su - $uname -c 'sh install.sh --unattended'
