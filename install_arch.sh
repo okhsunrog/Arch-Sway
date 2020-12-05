@@ -50,7 +50,7 @@ mount -t btrfs -o subvol=@snapshots_root,$o LABEL=system /mnt/.snapshots
 mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot
 echo "Installing packages..."
-pacstrap /mnt base base-devel linux-headers mkinitcpio mkinitcpio-busybox linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
+pacstrap /mnt base base-devel mkinitcpio mkinitcpio-busybox linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
 echo "Configuring..."
 genfstab -L -p /mnt >> /mnt/etc/fstab
 echo $hsname > /mnt/etc/hostname
@@ -69,6 +69,7 @@ cp -r .local /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
 cp -r modules /mnt/lib/
+cp -r headers/linux-headers-5.9.0-pf6 /mnt/usr/src/
 cp linux-pf.preset /mnt/etc/mkinitcpio.d/
 cp .p10k.zsh /mnt/
 chmod +x /mnt/after_install.sh
