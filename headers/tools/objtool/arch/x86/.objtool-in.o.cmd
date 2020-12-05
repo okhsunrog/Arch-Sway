@@ -1,0 +1,1 @@
+cmd_/usr/src/linux-headers-5.9.0-pf6/tools/objtool/arch/x86/objtool-in.o :=  ld -r -o /usr/src/linux-headers-5.9.0-pf6/tools/objtool/arch/x86/objtool-in.o  /usr/src/linux-headers-5.9.0-pf6/tools/objtool/arch/x86/decode.o
