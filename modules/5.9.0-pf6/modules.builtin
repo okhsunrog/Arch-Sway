@@ -63,7 +63,6 @@ kernel/lib/linear_ranges.ko
 kernel/lib/packing.ko
 kernel/lib/crc-ccitt.ko
 kernel/lib/crc-t10dif.ko
-kernel/lib/crc-itu-t.ko
 kernel/lib/crc32.ko
 kernel/lib/xxhash.ko
 kernel/lib/zlib_inflate/zlib_inflate.ko
@@ -84,6 +83,7 @@ kernel/lib/oid_registry.ko
 kernel/lib/ucs2_string.ko
 kernel/drivers/irqchip/irq-al-fic.ko
 kernel/drivers/bus/simple-pm-bus.ko
+kernel/drivers/phy/intel/phy-intel-combo.ko
 kernel/drivers/pinctrl/intel/pinctrl-cherryview.ko
 kernel/drivers/pinctrl/intel/pinctrl-lynxpoint.ko
 kernel/drivers/pinctrl/intel/pinctrl-intel.ko
@@ -210,11 +210,6 @@ kernel/drivers/cpufreq/freq_table.ko
 kernel/drivers/cpufreq/cpufreq_performance.ko
 kernel/drivers/cpufreq/intel_pstate.ko
 kernel/drivers/leds/led-class.ko
-kernel/drivers/hid/hid.ko
-kernel/drivers/hid/hid-generic.ko
-kernel/drivers/hid/hid-elan.ko
-kernel/drivers/hid/usbhid/usbhid.ko
-kernel/drivers/hid/i2c-hid/i2c-hid.ko
 kernel/drivers/platform/x86/intel_pmc_core.ko
 kernel/drivers/platform/x86/intel_pmc_core_pltdrv.ko
 kernel/drivers/hwspinlock/hwspinlock_core.ko

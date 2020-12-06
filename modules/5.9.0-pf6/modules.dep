@@ -11,16 +11,18 @@ kernel/arch/x86/kvm/kvm.ko.xz: kernel/virt/lib/irqbypass.ko.xz
 kernel/arch/x86/kvm/kvm-intel.ko.xz: kernel/arch/x86/kvm/kvm.ko.xz kernel/virt/lib/irqbypass.ko.xz
 kernel/fs/nls/nls_cp437.ko.xz:
 kernel/fs/nls/nls_iso8859-1.ko.xz:
+kernel/fs/nls/nls_utf8.ko.xz:
 kernel/fs/mbcache.ko.xz:
 kernel/fs/ext4/ext4.ko.xz: kernel/lib/crc16.ko.xz kernel/fs/mbcache.ko.xz kernel/fs/jbd2/jbd2.ko.xz
+kernel/fs/ext2/ext2.ko.xz: kernel/fs/mbcache.ko.xz
 kernel/fs/jbd2/jbd2.ko.xz:
 kernel/fs/fat/fat.ko.xz:
 kernel/fs/fat/vfat.ko.xz: kernel/fs/fat/fat.ko.xz
 kernel/fs/fat/msdos.ko.xz: kernel/fs/fat/fat.ko.xz
 kernel/fs/exfat/exfat.ko.xz:
-kernel/fs/isofs/isofs.ko.xz:
+kernel/fs/isofs/isofs.ko.xz: kernel/drivers/cdrom/cdrom.ko.xz
 kernel/fs/fuse/fuse.ko.xz:
-kernel/fs/udf/udf.ko.xz:
+kernel/fs/udf/udf.ko.xz: kernel/lib/crc-itu-t.ko.xz kernel/drivers/cdrom/cdrom.ko.xz
 kernel/fs/btrfs/btrfs.ko.xz: kernel/lib/libcrc32c.ko.xz kernel/crypto/xor.ko.xz kernel/lib/raid6/raid6_pq.ko.xz
 kernel/fs/f2fs/f2fs.ko.xz:
 kernel/security/keys/trusted-keys/trusted.ko.xz: kernel/drivers/char/tpm/tpm.ko.xz kernel/drivers/char/hw_random/rng-core.ko.xz
@@ -51,6 +53,7 @@ kernel/crypto/async_tx/async_xor.ko.xz: kernel/crypto/async_tx/async_tx.ko.xz ke
 kernel/crypto/crypto_simd.ko.xz: kernel/crypto/cryptd.ko.xz
 kernel/lib/crypto/libarc4.ko.xz:
 kernel/lib/crc16.ko.xz:
+kernel/lib/crc-itu-t.ko.xz:
 kernel/lib/libcrc32c.ko.xz:
 kernel/lib/raid6/raid6_pq.ko.xz:
 kernel/drivers/video/fbdev/core/sysfillrect.ko.xz:
@@ -74,6 +77,8 @@ kernel/drivers/gpu/drm/ttm/ttm.ko.xz: kernel/drivers/gpu/drm/drm.ko.xz kernel/dr
 kernel/drivers/gpu/drm/scheduler/gpu-sched.ko.xz: kernel/drivers/gpu/drm/drm.ko.xz kernel/drivers/char/agp/agpgart.ko.xz
 kernel/drivers/gpu/drm/amd/amdgpu/amdgpu.ko.xz: kernel/drivers/gpu/drm/scheduler/gpu-sched.ko.xz kernel/drivers/i2c/algos/i2c-algo-bit.ko.xz kernel/drivers/gpu/drm/ttm/ttm.ko.xz kernel/drivers/gpu/drm/drm_kms_helper.ko.xz kernel/drivers/video/fbdev/core/syscopyarea.ko.xz kernel/drivers/video/fbdev/core/sysfillrect.ko.xz kernel/drivers/video/fbdev/core/sysimgblt.ko.xz kernel/drivers/video/fbdev/core/fb_sys_fops.ko.xz kernel/drivers/media/cec/core/cec.ko.xz kernel/drivers/media/rc/rc-core.ko.xz kernel/drivers/gpu/drm/drm.ko.xz kernel/drivers/char/agp/agpgart.ko.xz
 kernel/drivers/gpu/drm/i915/i915.ko.xz: kernel/drivers/char/agp/intel-gtt.ko.xz kernel/drivers/i2c/algos/i2c-algo-bit.ko.xz kernel/drivers/gpu/drm/drm_kms_helper.ko.xz kernel/drivers/video/fbdev/core/syscopyarea.ko.xz kernel/drivers/video/fbdev/core/sysfillrect.ko.xz kernel/drivers/video/fbdev/core/sysimgblt.ko.xz kernel/drivers/video/fbdev/core/fb_sys_fops.ko.xz kernel/drivers/media/cec/core/cec.ko.xz kernel/drivers/media/rc/rc-core.ko.xz kernel/drivers/gpu/drm/drm.ko.xz kernel/drivers/char/agp/agpgart.ko.xz
+kernel/drivers/block/loop.ko.xz:
+kernel/drivers/block/pktcdvd.ko.xz: kernel/drivers/cdrom/cdrom.ko.xz
 kernel/drivers/misc/mei/mei.ko.xz:
 kernel/drivers/misc/mei/mei-me.ko.xz: kernel/drivers/misc/mei/mei.ko.xz
 kernel/drivers/misc/mei/hdcp/mei_hdcp.ko.xz: kernel/drivers/misc/mei/mei.ko.xz
@@ -87,21 +92,26 @@ kernel/drivers/net/phy/realtek.ko.xz: kernel/drivers/net/phy/libphy.ko.xz
 kernel/drivers/net/ethernet/realtek/r8169.ko.xz: kernel/drivers/net/phy/mdio_devres.ko.xz kernel/drivers/of/of_mdio.ko.xz kernel/drivers/net/phy/fixed_phy.ko.xz kernel/drivers/net/phy/libphy.ko.xz
 kernel/drivers/net/wireless/realtek/rtlwifi/rtlwifi.ko.xz: kernel/net/mac80211/mac80211.ko.xz kernel/lib/crypto/libarc4.ko.xz kernel/net/wireless/cfg80211.ko.xz kernel/net/rfkill/rfkill.ko.xz
 kernel/drivers/net/wireless/realtek/rtlwifi/rtl_pci.ko.xz: kernel/drivers/net/wireless/realtek/rtlwifi/rtlwifi.ko.xz kernel/net/mac80211/mac80211.ko.xz kernel/lib/crypto/libarc4.ko.xz kernel/net/wireless/cfg80211.ko.xz kernel/net/rfkill/rfkill.ko.xz
-kernel/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/rtl8723ae.ko.xz: kernel/drivers/net/wireless/realtek/rtlwifi/btcoexist/btcoexist.ko.xz kernel/drivers/net/wireless/realtek/rtlwifi/rtl_pci.ko.xz kernel/drivers/net/wireless/realtek/rtlwifi/rtl8723com/rtl8723-common.ko.xz kernel/drivers/net/wireless/realtek/rtlwifi/rtlwifi.ko.xz kernel/net/mac80211/mac80211.ko.xz kernel/lib/crypto/libarc4.ko.xz kernel/net/wireless/cfg80211.ko.xz kernel/net/rfkill/rfkill.ko.xz
-kernel/drivers/net/wireless/realtek/rtlwifi/rtl8723be/rtl8723be.ko.xz: kernel/drivers/net/wireless/realtek/rtlwifi/btcoexist/btcoexist.ko.xz kernel/drivers/net/wireless/realtek/rtlwifi/rtl_pci.ko.xz kernel/drivers/net/wireless/realtek/rtlwifi/rtl8723com/rtl8723-common.ko.xz kernel/drivers/net/wireless/realtek/rtlwifi/rtlwifi.ko.xz kernel/net/mac80211/mac80211.ko.xz kernel/lib/crypto/libarc4.ko.xz kernel/net/wireless/cfg80211.ko.xz kernel/net/rfkill/rfkill.ko.xz
 kernel/drivers/net/wireless/realtek/rtlwifi/btcoexist/btcoexist.ko.xz: kernel/drivers/net/wireless/realtek/rtlwifi/rtlwifi.ko.xz kernel/net/mac80211/mac80211.ko.xz kernel/lib/crypto/libarc4.ko.xz kernel/net/wireless/cfg80211.ko.xz kernel/net/rfkill/rfkill.ko.xz
-kernel/drivers/net/wireless/realtek/rtlwifi/rtl8723com/rtl8723-common.ko.xz: kernel/drivers/net/wireless/realtek/rtlwifi/rtlwifi.ko.xz kernel/net/mac80211/mac80211.ko.xz kernel/lib/crypto/libarc4.ko.xz kernel/net/wireless/cfg80211.ko.xz kernel/net/rfkill/rfkill.ko.xz
 kernel/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/rtl8821ae.ko.xz: kernel/drivers/net/wireless/realtek/rtlwifi/btcoexist/btcoexist.ko.xz kernel/drivers/net/wireless/realtek/rtlwifi/rtl_pci.ko.xz kernel/drivers/net/wireless/realtek/rtlwifi/rtlwifi.ko.xz kernel/net/mac80211/mac80211.ko.xz kernel/lib/crypto/libarc4.ko.xz kernel/net/wireless/cfg80211.ko.xz kernel/net/rfkill/rfkill.ko.xz
-kernel/drivers/net/wireless/realtek/rtlwifi/rtl8192ee/rtl8192ee.ko.xz: kernel/drivers/net/wireless/realtek/rtlwifi/btcoexist/btcoexist.ko.xz kernel/drivers/net/wireless/realtek/rtlwifi/rtl_pci.ko.xz kernel/drivers/net/wireless/realtek/rtlwifi/rtlwifi.ko.xz kernel/net/mac80211/mac80211.ko.xz kernel/lib/crypto/libarc4.ko.xz kernel/net/wireless/cfg80211.ko.xz kernel/net/rfkill/rfkill.ko.xz
+kernel/drivers/net/mii.ko.xz:
 kernel/drivers/net/tun.ko.xz:
+kernel/drivers/net/usb/cdc_ether.ko.xz: kernel/drivers/net/usb/usbnet.ko.xz kernel/drivers/net/mii.ko.xz
+kernel/drivers/net/usb/rndis_host.ko.xz: kernel/drivers/net/usb/cdc_ether.ko.xz kernel/drivers/net/usb/usbnet.ko.xz kernel/drivers/net/mii.ko.xz
+kernel/drivers/net/usb/usbnet.ko.xz: kernel/drivers/net/mii.ko.xz
+kernel/drivers/cdrom/cdrom.ko.xz:
 kernel/drivers/usb/host/xhci-hcd.ko.xz:
 kernel/drivers/usb/host/xhci-pci.ko.xz: kernel/drivers/usb/host/xhci-pci-renesas.ko.xz kernel/drivers/usb/host/xhci-hcd.ko.xz
 kernel/drivers/usb/host/xhci-pci-renesas.ko.xz:
+kernel/drivers/usb/storage/uas.ko.xz: kernel/drivers/usb/storage/usb-storage.ko.xz
 kernel/drivers/usb/storage/usb-storage.ko.xz:
+kernel/drivers/usb/serial/ch341.ko.xz:
+kernel/drivers/usb/serial/cp210x.ko.xz:
 kernel/drivers/usb/roles/roles.ko.xz:
 kernel/drivers/usb/roles/intel-xhci-usb-role-switch.ko.xz: kernel/drivers/usb/roles/roles.ko.xz
 kernel/drivers/input/keyboard/atkbd.ko.xz: kernel/drivers/input/serio/libps2.ko.xz kernel/drivers/input/serio/serio.ko.xz
 kernel/drivers/input/mouse/elan_i2c.ko.xz:
+kernel/drivers/input/misc/uinput.ko.xz:
 kernel/drivers/input/sparse-keymap.ko.xz:
 kernel/drivers/input/input-leds.ko.xz:
 kernel/drivers/input/mousedev.ko.xz:
@@ -162,6 +172,10 @@ kernel/drivers/bluetooth/btusb.ko.xz: kernel/drivers/bluetooth/btrtl.ko.xz kerne
 kernel/drivers/bluetooth/btintel.ko.xz: kernel/net/bluetooth/bluetooth.ko.xz kernel/crypto/ecdh_generic.ko.xz kernel/crypto/ecc.ko.xz kernel/net/rfkill/rfkill.ko.xz kernel/lib/crc16.ko.xz
 kernel/drivers/bluetooth/btbcm.ko.xz: kernel/net/bluetooth/bluetooth.ko.xz kernel/crypto/ecdh_generic.ko.xz kernel/crypto/ecc.ko.xz kernel/net/rfkill/rfkill.ko.xz kernel/lib/crc16.ko.xz
 kernel/drivers/bluetooth/btrtl.ko.xz: kernel/net/bluetooth/bluetooth.ko.xz kernel/crypto/ecdh_generic.ko.xz kernel/crypto/ecc.ko.xz kernel/net/rfkill/rfkill.ko.xz kernel/lib/crc16.ko.xz
+kernel/drivers/hid/hid.ko.xz:
+kernel/drivers/hid/hid-generic.ko.xz: kernel/drivers/hid/hid.ko.xz
+kernel/drivers/hid/usbhid/usbhid.ko.xz: kernel/drivers/hid/hid.ko.xz
+kernel/drivers/hid/i2c-hid/i2c-hid.ko.xz: kernel/drivers/hid/hid.ko.xz
 kernel/sound/soundcore.ko.xz:
 kernel/sound/core/snd.ko.xz: kernel/sound/soundcore.ko.xz
 kernel/sound/core/snd-hwdep.ko.xz: kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
@@ -174,12 +188,18 @@ kernel/sound/pci/hda/snd-hda-codec-hdmi.ko.xz: kernel/sound/pci/hda/snd-hda-code
 kernel/sound/pci/hda/snd-hda-intel.ko.xz: kernel/sound/hda/snd-intel-dspcfg.ko.xz kernel/sound/pci/hda/snd-hda-codec.ko.xz kernel/sound/core/snd-hwdep.ko.xz kernel/sound/hda/snd-hda-core.ko.xz kernel/sound/core/snd-pcm.ko.xz kernel/sound/core/snd-timer.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
 kernel/sound/usb/snd-usb-audio.ko.xz: kernel/sound/usb/snd-usbmidi-lib.ko.xz kernel/sound/core/snd-rawmidi.ko.xz kernel/sound/core/snd-hwdep.ko.xz kernel/sound/core/snd-pcm.ko.xz kernel/sound/core/snd-timer.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz kernel/drivers/media/mc/mc.ko.xz
 kernel/sound/usb/snd-usbmidi-lib.ko.xz: kernel/sound/core/snd-rawmidi.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
+kernel/sound/usb/misc/snd-ua101.ko.xz: kernel/sound/usb/snd-usbmidi-lib.ko.xz kernel/sound/core/snd-rawmidi.ko.xz kernel/sound/core/snd-pcm.ko.xz kernel/sound/core/snd-timer.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
+kernel/sound/usb/usx2y/snd-usb-usx2y.ko.xz: kernel/sound/usb/snd-usbmidi-lib.ko.xz kernel/sound/core/snd-rawmidi.ko.xz kernel/sound/core/snd-hwdep.ko.xz kernel/sound/core/snd-pcm.ko.xz kernel/sound/core/snd-timer.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
+kernel/sound/usb/usx2y/snd-usb-us122l.ko.xz: kernel/sound/usb/snd-usbmidi-lib.ko.xz kernel/sound/core/snd-rawmidi.ko.xz kernel/sound/core/snd-hwdep.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
 kernel/sound/soc/snd-soc-acpi.ko.xz:
 kernel/sound/soc/snd-soc-core.ko.xz: kernel/sound/core/snd-pcm.ko.xz kernel/sound/core/snd-timer.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
 kernel/sound/soc/intel/common/snd-soc-sst-dsp.ko.xz:
 kernel/sound/soc/intel/common/snd-soc-sst-ipc.ko.xz:
+kernel/sound/soc/intel/common/snd-soc-sst-acpi.ko.xz: kernel/sound/soc/intel/common/snd-soc-acpi-intel-match.ko.xz kernel/sound/soc/snd-soc-acpi.ko.xz
+kernel/sound/soc/intel/common/snd-soc-sst-firmware.ko.xz:
 kernel/sound/soc/intel/common/snd-soc-acpi-intel-match.ko.xz: kernel/sound/soc/snd-soc-acpi.ko.xz
-kernel/sound/soc/intel/skylake/snd-soc-skl.ko.xz: kernel/sound/soc/snd-soc-core.ko.xz kernel/sound/soc/intel/common/snd-soc-acpi-intel-match.ko.xz kernel/sound/soc/snd-soc-acpi.ko.xz kernel/sound/soc/intel/common/snd-soc-sst-ipc.ko.xz kernel/sound/soc/intel/common/snd-soc-sst-dsp.ko.xz kernel/sound/hda/ext/snd-hda-ext-core.ko.xz kernel/sound/hda/snd-intel-dspcfg.ko.xz kernel/sound/hda/snd-hda-core.ko.xz kernel/sound/core/snd-pcm.ko.xz kernel/sound/core/snd-timer.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
+kernel/sound/soc/intel/haswell/snd-soc-sst-haswell-pcm.ko.xz: kernel/sound/soc/intel/common/snd-soc-sst-dsp.ko.xz kernel/sound/soc/intel/common/snd-soc-sst-ipc.ko.xz kernel/sound/soc/snd-soc-core.ko.xz kernel/sound/soc/intel/common/snd-soc-sst-firmware.ko.xz kernel/sound/core/snd-pcm.ko.xz kernel/sound/core/snd-timer.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
+kernel/sound/soc/intel/skylake/snd-soc-skl.ko.xz: kernel/sound/hda/ext/snd-hda-ext-core.ko.xz kernel/sound/soc/intel/common/snd-soc-sst-dsp.ko.xz kernel/sound/soc/intel/common/snd-soc-sst-ipc.ko.xz kernel/sound/soc/snd-soc-core.ko.xz kernel/sound/soc/intel/common/snd-soc-acpi-intel-match.ko.xz kernel/sound/soc/snd-soc-acpi.ko.xz kernel/sound/hda/snd-intel-dspcfg.ko.xz kernel/sound/hda/snd-hda-core.ko.xz kernel/sound/core/snd-pcm.ko.xz kernel/sound/core/snd-timer.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
 kernel/sound/hda/snd-hda-core.ko.xz: kernel/sound/core/snd-pcm.ko.xz kernel/sound/core/snd-timer.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
 kernel/sound/hda/ext/snd-hda-ext-core.ko.xz: kernel/sound/hda/snd-hda-core.ko.xz kernel/sound/core/snd-pcm.ko.xz kernel/sound/core/snd-timer.ko.xz kernel/sound/core/snd.ko.xz kernel/sound/soundcore.ko.xz
 kernel/sound/hda/snd-intel-dspcfg.ko.xz:
@@ -193,3 +213,6 @@ kernel/net/bluetooth/bnep/bnep.ko.xz: kernel/net/bluetooth/bluetooth.ko.xz kerne
 kernel/net/mac80211/mac80211.ko.xz: kernel/lib/crypto/libarc4.ko.xz kernel/net/wireless/cfg80211.ko.xz kernel/net/rfkill/rfkill.ko.xz
 kernel/net/rfkill/rfkill.ko.xz:
 kernel/virt/lib/irqbypass.ko.xz:
+kernel/misc/vboxnetflt.ko.xz: kernel/misc/vboxdrv.ko.xz
+kernel/misc/vboxnetadp.ko.xz: kernel/misc/vboxdrv.ko.xz
+kernel/misc/vboxdrv.ko.xz:

@@ -21,8 +21,8 @@ on_collapsed_click = "spotify"
 marquee = false
 max_width = 30
 smart_trim = true
-player = "clementine"
-on_collapsed_click = "clementine"
+player = "youtubemusic"
+on_collapsed_click = "youtube-music"
 
 [[block]]
 block = "keyboard_layout"

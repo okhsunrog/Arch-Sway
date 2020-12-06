@@ -59,7 +59,8 @@ echo "127.0.0.1	localhost
 127.0.1.1	${hsname}.localdomain	${hsname}" > /mnt/etc/hosts
 sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /mnt/etc/locale.gen
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf 
-cp vmlinuz-linux-pf /mnt/boot/
+cp vmlinuz /mnt/boot/
+cp System.map /mnt/boot/
 cp s_part.sh /mnt/
 cp after_install.sh /mnt/
 cp btrfs_map_physical.c /mnt/
@@ -69,12 +70,10 @@ cp -r .local /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
 cp -r modules /mnt/lib/
-cp -r headers/linux-headers-5.9.0-pf6 /mnt/usr/src/
-cp linux-pf.preset /mnt/etc/mkinitcpio.d/
+cp pf.preset /mnt/etc/mkinitcpio.d/
 cp .p10k.zsh /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/s_part.sh
-chmod +x /mnt/boot/vmlinuz-linux-pf
 arch-chroot /mnt ./s_part.sh
 rm /mnt/s_part.sh
 sleep 1
