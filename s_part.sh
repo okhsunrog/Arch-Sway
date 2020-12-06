@@ -19,7 +19,7 @@ FILES=""
 HOOKS="base udev autodetect modconf block encrypt btrfs filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
 mkinitcpio -P pf
 echo "Installing additional software..."
-pacman -S noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop gnome-icon-theme qt5ct meson ninja scdoc brightnessctl playerctl mako qbittorrent virtualbox virtualbox-host-dkms gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav earlyoom --noconfirm
+pacman -S noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop gnome-icon-theme qt5ct meson ninja scdoc brightnessctl playerctl mako qbittorrent gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom --noconfirm
 echo "LOCALE=en_US.UTF-8
 KEYMAP=ru
 FONT=ter-u16b
@@ -36,7 +36,7 @@ echo "$rpass
 $rpass" | passwd
 echo "Creating a new user..."
 read -p 'Enter username: ' uname
-useradd -mG wheel,video,uucp,lock,vboxusers -s /usr/bin/zsh $uname
+useradd -mG wheel,video,uucp,lock -s /usr/bin/zsh $uname
 read -p "Enter $uname password: " upass
 echo "$upass
 $upass" | passwd $uname
@@ -78,7 +78,6 @@ TERMINAL=kitty
 echo "$uname ALL=NOPASSWD: /usr/bin/systemctl hibernate
 " >> /etc/sudoers.d/custom
 chmod 440 /etc/sudoers.d/custom
-echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/master/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
 echo "Enter your swapfile size in GiB"
 read -p 'Swap size : ' swsizeG

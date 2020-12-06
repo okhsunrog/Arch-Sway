@@ -213,6 +213,3 @@ kernel/net/bluetooth/bnep/bnep.ko.xz: kernel/net/bluetooth/bluetooth.ko.xz kerne
 kernel/net/mac80211/mac80211.ko.xz: kernel/lib/crypto/libarc4.ko.xz kernel/net/wireless/cfg80211.ko.xz kernel/net/rfkill/rfkill.ko.xz
 kernel/net/rfkill/rfkill.ko.xz:
 kernel/virt/lib/irqbypass.ko.xz:
-kernel/misc/vboxnetflt.ko.xz: kernel/misc/vboxdrv.ko.xz
-kernel/misc/vboxnetadp.ko.xz: kernel/misc/vboxdrv.ko.xz
-kernel/misc/vboxdrv.ko.xz:
