@@ -59,8 +59,7 @@ echo "127.0.0.1	localhost
 127.0.1.1	${hsname}.localdomain	${hsname}" > /mnt/etc/hosts
 sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /mnt/etc/locale.gen
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf 
-cp vmlinuz /mnt/boot/
-cp System.map /mnt/boot/
+cp config /mnt/root/.config
 cp s_part.sh /mnt/
 cp after_install.sh /mnt/
 cp btrfs_map_physical.c /mnt/
