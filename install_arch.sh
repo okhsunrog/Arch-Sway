@@ -76,4 +76,5 @@ chmod +x /mnt/s_part.sh
 arch-chroot /mnt ./s_part.sh
 rm /mnt/s_part.sh
 sleep 1
+reboot
 

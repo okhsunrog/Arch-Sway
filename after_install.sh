@@ -11,7 +11,7 @@ git config --global user.email "dghak@bk.ru"
 (crontab -l 2>/dev/null; echo "* * * * * ~/scripts/hib_on_low.sh >/dev/null 2>&1") | crontab -
 echo "Installing additiional packages..."
 gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
-yay -S pipewire libpipewire02 xdg-desktop-portal xdg-desktop-portal-wlr youtube-music-appimage fedora-firefox-wayland-bin chromium wofi-hg ytop-bin nerd-fonts-fira-code i3ipc-python-git clipman tor-browser pulseaudio-modules-bt-git translate-shell obs-studio-wayland wlrobs zoom jmtpfs swaylock-effects-git yandex-disk adbfs-rootless-git scrcpy nm-connection-editor networkmanager-openvpn hunspell hunspell-en_US hunspell-ru-aot-ieyo hyphen hyphen-en hyphen-ru --noconfirm --sudoloop
+yay -S virtualbox-ext-oracle pipewire libpipewire02 xdg-desktop-portal xdg-desktop-portal-wlr youtube-music-appimage fedora-firefox-wayland-bin chromium wofi-hg ytop-bin nerd-fonts-fira-code i3ipc-python-git clipman tor-browser pulseaudio-modules-bt-git translate-shell obs-studio-wayland wlrobs zoom jmtpfs swaylock-effects-git yandex-disk adbfs-rootless-git scrcpy nm-connection-editor networkmanager-openvpn hunspell hunspell-en_US hunspell-ru-aot-ieyo hyphen hyphen-en hyphen-ru --noconfirm --sudoloop
 echo "Zoom configuration..."
 cp /usr/share/applications/Zoom.desktop ~/.local/share/applications
 sed -i 's+Exec=/usr/bin/zoom %U+Exec=env QT_QPA_PLATFORM=xcb /usr/bin/zoom %U+g' ~/.local/share/applications/Zoom.desktop
