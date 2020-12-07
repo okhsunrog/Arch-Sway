@@ -110,7 +110,6 @@ make modules_install
 make headers_install INSTALL_HDR_PATH=/usr
 make install
 cd ..
-rm -rf pf-kernel*
 mkinitcpio -P pf
 echo "Installing bootloader..."
 bootctl --path=/boot install
