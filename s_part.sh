@@ -17,20 +17,9 @@ MODULES=""
 BINARIES=""
 FILES=""
 HOOKS="base udev autodetect modconf block encrypt btrfs filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
+mkinitcpio -P
 echo "Installing additional software..."
-pacman -S noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop gnome-icon-theme qt5ct meson ninja scdoc brightnessctl playerctl mako qbittorrent gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom --noconfirm
-cd /root
-wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.9-pf6/pf-kernel-v5.9-pf6.tar.gz
-aunpack pf*gz
-cp .config pf-kernel*/
-cd pf-kernel*
-make -j4
-make modules_install
-make headers_install INSTALL_HDR_PATH=/usr
-make install
-cd ..
-mkinitcpio -P pf
-pacman -S virtualbox virtualbox-host-modules-arch --noconfirm
+pacman -S noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop gnome-icon-theme qt5ct meson ninja scdoc brightnessctl playerctl mako qbittorrent gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom virtualbox virtualbox-host-modules-arch --noconfirm
 echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 echo "LOCALE=en_US.UTF-8
 KEYMAP=ru
@@ -114,12 +103,12 @@ OU2=$(getconf PAGESIZE)
 OU3=$((OU1 / OU2))
 echo "Installing bootloader..."
 bootctl --path=/boot install
-echo "default arch-pf.conf" > /boot/loader/loader.conf
-echo "title           Arch Linux PF
-linux           /vmlinuz
+echo "default arch.conf" > /boot/loader/loader.conf
+echo "title           Arch Linux
+linux           /vmlinuz-linux
 initrd          /intel-ucode.img
-initrd          /initramfs.img
-options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rd.luks.options=discard rw quiet" > /boot/loader/entries/arch-pf.conf
+initrd          /initramfs-linux.img
+options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rd.luks.options=discard rw quiet" > /boot/loader/entries/arch.conf
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 mv install.sh /home/$uname/
 su - $uname -c 'sh install.sh --unattended'

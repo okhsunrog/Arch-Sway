@@ -50,7 +50,7 @@ mount -t btrfs -o subvol=@snapshots_root,$o LABEL=system /mnt/.snapshots
 mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot
 echo "Installing packages..."
-pacstrap /mnt base base-devel mkinitcpio mkinitcpio-busybox linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
+pacstrap /mnt base base-devel mkinitcpio mkinitcpio-busybox linux-headers linux linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
 echo "Configuring..."
 genfstab -L -p /mnt >> /mnt/etc/fstab
 echo $hsname > /mnt/etc/hostname
@@ -59,7 +59,6 @@ echo "127.0.0.1	localhost
 127.0.1.1	${hsname}.localdomain	${hsname}" > /mnt/etc/hosts
 sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /mnt/etc/locale.gen
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf 
-cp config /mnt/root/.config
 cp s_part.sh /mnt/
 cp after_install.sh /mnt/
 cp btrfs_map_physical.c /mnt/
@@ -68,8 +67,6 @@ cp -r .config /mnt/
 cp -r .local /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
-cp -r modules /mnt/lib/
-cp pf.preset /mnt/etc/mkinitcpio.d/
 cp .p10k.zsh /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/s_part.sh
