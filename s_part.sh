@@ -17,10 +17,23 @@ MODULES=""
 BINARIES=""
 FILES=""
 HOOKS="base udev autodetect modconf block encrypt btrfs filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
-mkinitcpio -P
 echo "Installing additional software..."
-pacman -S noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop gnome-icon-theme qt5ct meson ninja scdoc brightnessctl playerctl mako qbittorrent gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom virtualbox virtualbox-host-modules-arch --noconfirm
-echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
+pacman -S noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop gnome-icon-theme qt5ct meson ninja scdoc brightnessctl playerctl mako qbittorrent gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom --noconfirm
+cd /root
+wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf1/pf-kernel-v5.10-pf1.tar.gz
+aunpack pf-kernel-v5.10-pf1.tar.gz
+rm pf-kernel-v5.10-pf1.tar.gz
+mv config pf-kernel-v5.10-pf1/.config
+cd pf-kernel-v5.10-pf1
+make -j4
+make modules_install
+make install
+mkinitcpio -p linux-pf
+make headers_install INSTALL_HDR_PATH=/usr
+rm /lib/modulres/5.10.0-pf1/{source,build}
+cd ..
+cp -r pf-kernel-v5.10-pf1 /lib/modulres/5.10.0-pf1/build
+rm -rf pf-kernel-v5.10-pf1
 echo "LOCALE=en_US.UTF-8
 KEYMAP=ru
 FONT=ter-u16b
@@ -37,7 +50,7 @@ echo "$rpass
 $rpass" | passwd
 echo "Creating a new user..."
 read -p 'Enter username: ' uname
-useradd -mG wheel,video,uucp,lock,vboxusers -s /usr/bin/zsh $uname
+useradd -mG wheel,video,uucp,lock -s /usr/bin/zsh $uname
 read -p "Enter $uname password: " upass
 echo "$upass
 $upass" | passwd $uname
@@ -105,9 +118,9 @@ echo "Installing bootloader..."
 bootctl --path=/boot install
 echo "default arch.conf" > /boot/loader/loader.conf
 echo "title           Arch Linux
-linux           /vmlinuz-linux
+linux           /vmlinuz
 initrd          /intel-ucode.img
-initrd          /initramfs-linux.img
+initrd          /initramfs.img
 options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rd.luks.options=discard rw quiet" > /boot/loader/entries/arch.conf
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 mv install.sh /home/$uname/
