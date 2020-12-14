@@ -30,9 +30,9 @@ make modules_install
 make install
 mkinitcpio -p linux-pf
 make headers_install INSTALL_HDR_PATH=/usr
-rm /lib/modulres/5.10.0-pf1/{source,build}
+rm /lib/modules/5.10.0-pf1/{source,build}
 cd ..
-cp -r pf-kernel-v5.10-pf1 /lib/modulres/5.10.0-pf1/build
+cp -r pf-kernel-v5.10-pf1 /lib/modules/5.10.0-pf1/build
 rm -rf pf-kernel-v5.10-pf1
 echo "LOCALE=en_US.UTF-8
 KEYMAP=ru
