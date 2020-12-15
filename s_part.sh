@@ -22,7 +22,6 @@ pacman -S noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-a
 cd /root
 wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf1/pf-kernel-v5.10-pf1.tar.gz
 aunpack pf-kernel-v5.10-pf1.tar.gz
-rm pf-kernel-v5.10-pf1.tar.gz
 mv config pf-kernel-v5.10-pf1/.config
 cd pf-kernel-v5.10-pf1
 make -j4
@@ -30,10 +29,7 @@ make modules_install
 make install
 mkinitcpio -p linux-pf
 make headers_install INSTALL_HDR_PATH=/usr
-rm /lib/modules/5.10.0-pf1/{source,build}
-cd ..
-cp -r pf-kernel-v5.10-pf1 /lib/modules/5.10.0-pf1/build
-rm -rf pf-kernel-v5.10-pf1
+cd /
 echo "LOCALE=en_US.UTF-8
 KEYMAP=ru
 FONT=ter-u16b
