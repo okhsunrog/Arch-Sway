@@ -1,44 +1,30 @@
-* {
-    font-weight: bold;
-    border-radius: 0;
-}
+/* base16-wofi (https://sr.ht/~knezi/base16-wofi)
+ * Base16 wofi template by knezi
+ * Solarized Dark scheme by Ethan Schoonover (modified by aramisgithub) */
 
 window {
-	background-color: rgba(0, 0, 0, 0);
+	background-color: #002b36;
+	color: #93a1a1;
+}
+
+#entry:nth-child(odd) {
+	background-color: #002b36;
+}
+
+#entry:nth-child(even) {
+	background-color: #073642;
+}
+
+#entry:selected {
+	background-color: #586e75;
 }
 
 #input {
-	padding: 5px;
-	border: 0px solid #3481DD;
-	color: #ffffff;
-	font-size: 14px;
-	background-color: rgba(49,54,59, 1);
+	background-color: #073642;
+	color: #839496;
+	border-color: #586e75; 
 }
 
-#input image {
-	margin: 6px;
+#input:focus {
+	border-color: #b58900; 
 }
-
-#scroll {
-    font-size: 14px;
-	color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-#img {
-	margin: 0px 5px 0px 0px;
-}
-
-#inner-box flowboxchild {
-	padding: 2px;
-}
-
-#inner-box flowboxchild:selected {
-    background-color: #3481DD;
-    color: #ffffff;
-}
-
-list {
-	background-color: #0f5f8a;
-}
-

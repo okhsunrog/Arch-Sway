@@ -48,7 +48,7 @@ floating_modifier $mod normal
 bindsym --to-code $mod+Shift+e reload
 
 # Power menu
-bindsym --to-code $mod+e exec swaynag -f "DejaVu Sans Mono" --text "ffffff" --background "222222"  --button-background "424242" --border "ffffff" --border-bottom "ffffff" --border-bottom-size 0 --details-border-size 0 --button-border-size 1 -t warning -m 'Power menu' -B 'Exit' 'swaymsg exit' -B 'Power off' 'poweroff' -B 'Reboot' 'reboot' -B 'Sleep' 'systemctl suspend' -B 'Hibernate' 'systemctl hibernate' -B 'Suspend then hibernate' 'systemctl suspend-then-hibernate'
+bindsym --to-code $mod+e exec swaynag -f "DejaVu Sans Mono" --text "93a1a1" --background "002B36"  --button-background "002B36" --border "B58900" --border-bottom "B58900" --border-bottom-size 0 --details-border-size 0 --button-border-size 1 -t warning -m 'Power menu' -B 'Exit' 'swaymsg exit' -B 'Power off' 'poweroff' -B 'Reboot' 'reboot' -B 'Sleep' 'systemctl suspend' -B 'Hibernate' 'systemctl hibernate' -B 'Suspend then hibernate' 'systemctl suspend-then-hibernate'
 
 
 bindsym --to-code $mod+h sticky toggle
@@ -142,10 +142,10 @@ bindsym --to-code $mod+x scratchpad show
 # Resizing containers:
 bindsym --to-code $mod+r mode "resize"
 mode "resize" {
-bindsym Right resize shrink width 10px
-bindsym Up resize grow height 10px
-bindsym Down resize shrink height 10px
-bindsym Left resize grow width 10px
+bindsym Left resize shrink width 10px
+bindsym Down resize grow height 10px
+bindsym Up resize shrink height 10px
+bindsym Right resize grow width 10px
 
 # Return to default mode
 bindsym Return mode "default"

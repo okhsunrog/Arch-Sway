@@ -1,5 +1,18 @@
-theme = "slick"
 icons = "awesome5"
+
+[theme]
+name = "solarized-dark"
+[theme.overrides]
+idle_bg = "#002b36"
+idle_fg = "#93a1a1"
+info_bg = "#2aa198"
+info_fg = "#002b36"
+good_bg = "#859900"
+good_fg = "#002b36"
+warning_bg = "#b58900"
+warning_fg = "#002b36"
+critical_bg = "#dc322f"
+critical_fg = "#002b36"
 
 [[block]]
 block = "focused_window"

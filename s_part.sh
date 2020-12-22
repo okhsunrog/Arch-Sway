@@ -17,8 +17,13 @@ MODULES=""
 BINARIES=""
 FILES=""
 HOOKS="base udev autodetect modconf block encrypt btrfs filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
+echo '#!/bin/sh
+CP=/bin/cp
+exec $CP --reflink=auto $*' > /usr/local/bin/cp
+chmod +x /usr/local/bin/cp
 echo "Installing additional software..."
-pacman -S noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop gnome-icon-theme qt5ct meson ninja scdoc brightnessctl playerctl mako qbittorrent gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom --noconfirm
+pacman -Syu --noconfirm
+pacman -S texlive-langcyrillic texlive-core texlive-science qt5-styleplugins qt5-wayland inkscape fpc community-testing/virtualbox community-testing/virtualbox-host-dkms noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver telegram-desktop ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom --noconfirm
 cd /root
 wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf1/pf-kernel-v5.10-pf1.tar.gz
 aunpack pf-kernel-v5.10-pf1.tar.gz
@@ -46,7 +51,7 @@ echo "$rpass
 $rpass" | passwd
 echo "Creating a new user..."
 read -p 'Enter username: ' uname
-useradd -mG wheel,video,uucp,lock -s /usr/bin/zsh $uname
+useradd -mG wheel,video,uucp,lock,vboxusers -s /usr/bin/zsh $uname
 read -p "Enter $uname password: " upass
 echo "$upass
 $upass" | passwd $uname
@@ -57,6 +62,7 @@ chmod 600 /root/.gnupg/*
 chmod 700 /home/$uname/.gnupg
 chmod 600 /home/$uname/.gnupg/*
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
+echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 echo 'ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"' > /etc/udev/rules.d/99-udisks2.rules
 su - $uname -c 'set fish_greeting'
 systemctl enable earlyoom

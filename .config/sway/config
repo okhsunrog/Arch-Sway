@@ -6,10 +6,18 @@ exec wl-paste -t text --watch clipman store --no-persist
 exec wl-paste -p -t text --watch clipman store -P --no-persist --histpath="~/.local/share/clipman-primary.json"
 exec gammastep -m wayland -l 55.7:37.6 -t 6500:4500
 
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme NumixSolarizedDarkCyan
+    gsettings set $gnome-schema icon-theme Numix
+}
+
+
 #Output configuration
 output eDP-1 {
 	res 1366x768@59.973000Hz
-	background /home/$USER/real_home/Pictures/Wallpapers/desktop.jpg fill
+	background /home/$USER/real_home/Pictures/Wallpapers/desktop.png fill
 	pos 0 0
 }
 
@@ -50,7 +58,7 @@ input 1267:91:Elan_Touchpad {
 #    events disabled_on_external_mouse
     middle_emulation enabled
     tap enabled
-#   dwt enabled
+    dwt disabled
 }
 
 
@@ -61,13 +69,13 @@ font pango:DejaVu Sans Mono, Font Awesome 5 Free
     output eDP-1
     status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
     colors {
-        separator #666666
-        background #222222
-        statusline #dddddd
-        focused_workspace #9CD45B #9CD45B #ffffff
-        active_workspace #333333 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace #2f343a #900000 #ffffff
+        separator #002B36
+        background #002B36
+        statusline #002B36
+        focused_workspace #2AA198 #2AA198 #ffffff
+        active_workspace #002B36 #002B36 #ffffff
+        inactive_workspace #002B36 #002B36 #888888
+        urgent_workspace #DC322F #DC322F #ffffff
     }
 }
 
@@ -77,30 +85,15 @@ font pango:DejaVu Sans Mono, Font Awesome 5 Free
     output HDMI-A-1
     status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config2.toml
     colors {
-        separator #666666
-        background #222222
-        statusline #dddddd
-        focused_workspace #0088CC #0088CC #ffffff
-        active_workspace #333333 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace #2f343a #900000 #ffffff
+        separator #002B36
+        background #002B36
+        statusline #002B36
+        focused_workspace #2AA198 #2AA198 #ffffff
+        active_workspace #002B36 #002B36 #ffffff
+        inactive_workspace #002B36 #002B36 #888888
+        urgent_workspace #DC322F #DC322F #ffffff
     }
 }
-
-#Borders colors
-set $cl_foc "#ffcc1b"
-set $cl_unf "#57544a"
-set $cl_fin "#786a37"
-set $cl_urg "#c40404"
-set $cl_ind "#ff0000"
-set $cl_bgr "#191a24"
-set $cl_txt "#ffffff" 
-
-#                         border   bg       text      indicator   childborder
-client.focused            $cl_foc  $cl_bgr  $cl_txt   $cl_ind     $cl_foc
-client.focused_inactive   $cl_fin  $cl_bgr  $cl_txt   $cl_ind     $cl_fin
-client.unfocused          $cl_unf  $cl_bgr  $cl_txt   $cl_ind     $cl_unf
-client.urgent             $cl_urg  $cl_bgr  $cl_txt   $cl_ind     $cl_urg
 
 
 #Windows' configuration
@@ -114,14 +107,11 @@ for_window [title="Picture in picture"] sticky enable
 for_window [title="win0"] floating enable
 for_window [title="Open Files"] floating enable
 for_window [title="Save File"] floating enable
+for_window [title="Choose Files"] floating enable
 for_window [title="discord.com is sharing your screen."] floating enable
 
-default_floating_border pixel 3
-default_border pixel 2
-smart_gaps on
-smart_borders on
-gaps inner 5
-gaps outer 3
+default_floating_border none
+default_border none
 titlebar_border_thickness 0
 
 include ~/.config/sway/*

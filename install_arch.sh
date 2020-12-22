@@ -1,9 +1,16 @@
 #!/bin/bash
+rmmod pcspkr
 echo "Welcome to the Arch-Sway installing script!"
+
+# Tests
+ls /sys/firmware/efi/efivars > /dev/null && \
+  ping archlinux.org -c 1 > /dev/null &&    \
+  timedatectl set-ntp true > /dev/null &&   \
+  print "Tests ok"
+
+
 read -p 'Enter disk encryption password: ' cryptpass
 read -p 'Enter your hostname (name of your PC): ' hsname
-rmmod pcspkr
-timedatectl set-ntp true
 sudo reflector --verbose --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
 echo "Configuring disks..."
 sleep 3
@@ -70,6 +77,8 @@ cp -r .local /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
 cp .p10k.zsh /mnt/
+rm /mnt/etc/pacman.conf
+cp pacman.conf /mnt/etc/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/s_part.sh
 arch-chroot /mnt ./s_part.sh

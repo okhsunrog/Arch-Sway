@@ -4,10 +4,10 @@ swaylock \
 	--indicator \
 	--indicator-radius 100 \
 	--indicator-thickness 7 \
-	--ring-color bb00cc \
-	--key-hl-color 880033 \
+	--ring-color B58900 \
+	--key-hl-color 2AA198 \
 	--line-color 00000000 \
-	--inside-color 00000088 \
+	--inside-color 002B36 \
 	--separator-color 00000000 \
-	--image ~/real_home/Pictures/Wallpapers/lockscreen.jpg
+	--color 002B36
 
