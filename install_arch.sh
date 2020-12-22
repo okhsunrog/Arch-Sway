@@ -1,13 +1,14 @@
 #!/bin/bash
 rmmod pcspkr
 echo "Welcome to the Arch-Sway installing script!"
-
+sleep 7
 # Tests
 ls /sys/firmware/efi/efivars > /dev/null && \
   ping archlinux.org -c 1 > /dev/null &&    \
   timedatectl set-ntp true > /dev/null &&   \
-  print "Tests ok"
+  echo "Tests ok"
 
+sleep 7
 
 read -p 'Enter disk encryption password: ' cryptpass
 read -p 'Enter your hostname (name of your PC): ' hsname
