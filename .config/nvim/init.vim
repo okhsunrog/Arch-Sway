@@ -13,8 +13,6 @@ call plug#end()
 """" enable the theme
 syntax enable
 
-let base16colorspace=256
-
 colorscheme base16-solarized-dark
 
 let g:vimtex_view_general_viewer = 'zathura'

@@ -23,7 +23,7 @@ output eDP-1 {
 
 output HDMI-A-1 {
         res 1920x1080@74.986000Hz
-        background /home/$USER/real_home/Pictures/Wallpapers/desktop.jpg fill
+        background /home/$USER/real_home/Pictures/Wallpapers/desktop.png fill
 	pos 1366 0
 }
 
