@@ -78,6 +78,7 @@ cp -r .local /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
 cp .p10k.zsh /mnt/
+cp .gtkrc-2.0 /mnt/
 rm /mnt/etc/pacman.conf
 cp pacman.conf /mnt/etc/
 chmod +x /mnt/after_install.sh

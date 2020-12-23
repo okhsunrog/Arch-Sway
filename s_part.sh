@@ -23,7 +23,7 @@ exec $CP --reflink=auto $*' > /usr/local/bin/cp
 chmod +x /usr/local/bin/cp
 echo "Installing additional software..."
 pacman -Syu --noconfirm
-pacman -S texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape fpc community-testing/virtualbox community-testing/virtualbox-host-dkms noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom --noconfirm
+pacman -S lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape fpc community-testing/virtualbox community-testing/virtualbox-host-dkms noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom --noconfirm
 cd /root
 wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf1/pf-kernel-v5.10-pf1.tar.gz
 aunpack pf-kernel-v5.10-pf1.tar.gz
@@ -141,9 +141,11 @@ mv /.local /home/$uname/.local
 mv /.config /home/$uname/.config
 mv /after_install.sh /home/$uname/
 mv /.p10k.zsh /home/$uname/
+mv /.gtkrc-2.0 /home/$uname/
 mv /.zshrc /home/$uname/
 mv /scripts /home/$uname/scripts
 chmod +x /home/$uname/scripts/*
 chown -R $uname:$uname /home/$uname
+sed -i "s+include \"/home/danila/.gtkrc-2.0.mine\"+include \"/home/$uname/.gtkrc-2.0.mine\"+g" /home/$uname/.gtkrc-2.0
 mkdir /media
 
