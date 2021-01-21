@@ -47,9 +47,36 @@ floating_modifier $mod normal
 # Reload the configuration file
 bindsym --to-code $mod+Shift+e reload
 
-# Power menu
-bindsym --to-code $mod+e exec swaynag -f "DejaVu Sans Mono" --text "93a1a1" --background "002B36"  --button-background "002B36" --border "B58900" --border-bottom "B58900" --border-bottom-size 0 --details-border-size 0 --button-border-size 1 -t warning -m 'Power menu' -B 'Exit' 'swaymsg exit' -B 'Power off' 'poweroff' -B 'Reboot' 'reboot' -B 'Sleep' 'systemctl suspend' -B 'Hibernate' 'systemctl hibernate' -B 'Suspend then hibernate' 'systemctl suspend-then-hibernate'
 
+# nag
+  set {
+    $nag         exec swaynagmode
+    $nag_exit    $nag --exit
+    $nag_confirm $nag --confirm
+    $nag_select  $nag --select
+  }
+  mode "nag" {
+    bindsym {
+      q         $nag_exit
+      Escape    $nag_exit
+
+      Return    $nag_confirm
+
+      Tab       $nag_select prev
+      Shift+Tab $nag_select next
+
+      Left      $nag_select next
+      Right     $nag_select prev
+
+      Up        $nag_select next
+      Down      $nag_select prev
+    }
+  }
+  bindsym --to-code {
+    $mod+e $nag -f 'DejaVu Sans Mono' --text '93a1a1' --background '002B36'  --button-background '002B36' --border 'B58900' --border-bottom 'B58900' --border-bottom-size 0 --details-border-size 0 --button-border-size 1 -t warning -m 'Power menu' -B 'Exit' 'swaymsg exit' -B 'Power off' 'poweroff' -B 'Reboot' 'reboot' -B 'Sleep' 'systemctl suspend' -B 'Hibernate' 'systemctl hibernate' -B 'Suspend then hibernate' 'systemctl suspend-then-hibernate'
+
+
+  }
 
 bindsym --to-code $mod+h sticky toggle
 
@@ -158,7 +185,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioRaiseVolume+Shift exec pactl set-sink-volume @DEFAULT_SINK@ +1%
 bindsym XF86AudioLowerVolume+Shift exec pactl set-sink-volume @DEFAULT_SINK@ -1%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym $mod+m exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 #Brightness control
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-

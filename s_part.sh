@@ -2,7 +2,6 @@
 mount -a
 locale-gen
 hwclock --systohc
-echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 systemctl enable NetworkManager
 rm /etc/mkinitcpio.conf
 sed -i 's/# deny = 3/deny = 0/g' /etc/security/faillock.conf
@@ -19,20 +18,21 @@ FILES=""
 HOOKS="base udev autodetect modconf block encrypt btrfs filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
 echo '#!/bin/sh
 CP=/bin/cp
-exec $CP --reflink=auto $*' > /usr/local/bin/cp
+exec $CP --reflink=auto "$@"' > /usr/local/bin/cp
 chmod +x /usr/local/bin/cp
 echo "Installing additional software..."
 pacman -Syu --noconfirm
-pacman -S lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape fpc community-testing/virtualbox community-testing/virtualbox-host-dkms noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder gammastep imagemagick upower bluez-utils bluez tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom --noconfirm
+pacman -S ttf-jetbrains-mono opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape fpc virtualbox virtualbox-host-dkms noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom --noconfirm
 cd /root
-wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf1/pf-kernel-v5.10-pf1.tar.gz
-aunpack pf-kernel-v5.10-pf1.tar.gz
-mv config pf-kernel-v5.10-pf1/.config
-cd pf-kernel-v5.10-pf1
+wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf9/pf-kernel-v5.10-pf9.tar.gz
+aunpack pf-kernel-v5.10-pf9.tar.gz
+mv config pf-kernel-v5.10-pf9/.config
+cd pf-kernel-v5.10-pf9
 make -j4
 make modules_install
 make install
-mkinitcpio -p linux-pf
+rm /boot/System.map
+mkinitcpio -P
 make headers_install INSTALL_HDR_PATH=/usr
 cd /
 echo "LOCALE=en_US.UTF-8
@@ -139,6 +139,7 @@ rm -rf /home/$uname/.local
 rm -rf /home/$uname/.config
 mv /.local /home/$uname/.local
 mv /.config /home/$uname/.config
+mv /.vim /home/$uname/.vim
 mv /after_install.sh /home/$uname/
 mv /.p10k.zsh /home/$uname/
 mv /.gtkrc-2.0 /home/$uname/

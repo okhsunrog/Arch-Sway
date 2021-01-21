@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 " Declare the list of plugins.
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'chriskempson/base16-vim'
+Plug 'overcache/NeoSolarized'
 Plug 'lervag/vimtex'
 
 " List ends here. Plugins become visible to Vim after this call.
@@ -13,13 +13,16 @@ call plug#end()
 """" enable the theme
 syntax enable
 
-colorscheme base16-solarized-dark
+colorscheme NeoSolarized
 
 let g:vimtex_view_general_viewer = 'zathura'
 let g:airline_theme='base16_solarized'
+let g:neosolarized_contrast = "normal"
 
 set tabstop=2
 set shiftwidth=2
 set smarttab
 set expandtab
-
+set termguicolors
+set background=dark
+set number

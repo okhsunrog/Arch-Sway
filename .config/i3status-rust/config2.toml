@@ -30,12 +30,11 @@ device_format = "{icon}{ap}"
 [[block]]
 block = "music"
 buttons = ["prev", "play", "next"]
-on_collapsed_click = "spotify"
 marquee = false
 max_width = 30
 smart_trim = true
-player = "youtubemusic"
-on_collapsed_click = "youtube-music"
+player = "DeaDBeeF"
+on_collapsed_click = "deadbeef"
 
 [[block]]
 block = "keyboard_layout"

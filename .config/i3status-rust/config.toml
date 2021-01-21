@@ -2,7 +2,6 @@ icons = "awesome5"
 
 [theme]
 name = "solarized-dark"
-
 [theme.overrides]
 idle_bg = "#002b36"
 idle_fg = "#93a1a1"
@@ -29,6 +28,15 @@ interface_name_include = []
 device_format = "{icon}{ap}"
 
 [[block]]
+block = "music"
+buttons = []
+marquee = false
+max_width = 14
+smart_trim = false
+player = "DeaDBeeF"
+on_collapsed_click = "deadbeef"
+
+[[block]]
 block = "keyboard_layout"
 driver = "sway"
 sway_kb_identifier = "1:1:AT_Translated_Set_2_keyboard"
@@ -50,5 +58,5 @@ format = "{percentage}%"
 [[block]]
 block = "time"
 interval = 60
-format = "%a %d/%m %R"
+format = "%R"
 

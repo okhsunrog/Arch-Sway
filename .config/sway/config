@@ -4,7 +4,6 @@ exec systembus-notify
 exec udiskie
 exec wl-paste -t text --watch clipman store --no-persist
 exec wl-paste -p -t text --watch clipman store -P --no-persist --histpath="~/.local/share/clipman-primary.json"
-exec gammastep -m wayland -l 55.7:37.6 -t 6500:4500
 
 set $gnome-schema org.gnome.desktop.interface
 
