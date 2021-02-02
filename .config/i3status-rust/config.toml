@@ -33,8 +33,9 @@ buttons = []
 marquee = false
 max_width = 14
 smart_trim = false
-player = "DeaDBeeF"
-on_collapsed_click = "deadbeef"
+player = "MellowPlayer3"
+on_collapsed_click = "MellowPlayer"
+on_click = "pkill MellowPlayer"
 
 [[block]]
 block = "keyboard_layout"

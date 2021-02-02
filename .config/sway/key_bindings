@@ -3,12 +3,19 @@ set $mod Mod4
 set $term kitty
 
 #Toggle touchpad
-bindsym --to-code $mod+y input 1267:91:Elan_Touchpad events disabled
-bindsym --to-code $mod+Shift+y input 1267:91:Elan_Touchpad events enabled
+#bindsym --to-code $mod+y input 1267:91:Elan_Touchpad events disabled
+#bindsym --to-code $mod+Shift+y input 1267:91:Elan_Touchpad events enabled
 
 #Notifications dismiss
 bindsym --to-code $mod+Shift+n exec "/home/$USER/scripts/dismiss_n_a.sh"
 bindsym --to-code $mod+n exec "/home/$USER/scripts/dismiss_n.sh"
+
+#WiFi switch
+bindsym --to-code $mod+w exec "/home/$USER/scripts/wifi_toggle.sh"
+
+#YouTube
+bindsym --to-code $mod+p exec "/home/$USER/scripts/play_vid.sh"
+bindsym --to-code $mod+Shift+p exec "/home/$USER/scripts/download_vid.sh"
 
 #Choose color on the screen and copy HEX to clipboard
 bindsym --to-code $mod+g exec "/home/$USER/scripts/choose_color.sh"

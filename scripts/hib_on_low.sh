@@ -3,7 +3,7 @@
 acpi -b | awk -F'[,:%]' '{print $2, $3}' | {
 	read -r status capacity
 
-	if [ "$status" = Discharging -a "$capacity" -lt 7 ]; then
+	if [ "$status" = Discharging -a "$capacity" -lt 9 ]; then
 		logger "Critical battery threshold"
     dbus-send --system / net.nuetzlich.SystemNotifications.Notify 'string:Low battery!' 'string:Your system will be hibernated in 40 seconds.'
     sleep 40

@@ -12,7 +12,7 @@ sleep 7
 
 read -p 'Enter disk encryption password: ' cryptpass
 read -p 'Enter your hostname (name of your PC): ' hsname
-sudo reflector --verbose --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
+reflector --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
 echo "Configuring disks..."
 sleep 3
 cat <<EOF | gdisk /dev/sda
@@ -60,7 +60,7 @@ mount -o X-mount.mkdir LABEL=EFI /mnt/boot
 echo "Installing packages..."
 pacstrap /mnt base base-devel mkinitcpio mkinitcpio-busybox linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
 echo "Configuring..."
-genfstab -L -p /mnt >> /mnt/etc/fstab
+genfstab -L /mnt >> /mnt/etc/fstab
 echo $hsname > /mnt/etc/hostname
 echo "127.0.0.1	localhost
 ::1		localhost
@@ -75,7 +75,6 @@ cp config /mnt/root/
 cp linux-pf.preset /mnt/etc/mkinitcpio.d/
 cp -r .config /mnt/
 cp -r .local /mnt/
-cp -r .vim /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
 cp .p10k.zsh /mnt/

@@ -49,7 +49,7 @@ exec swayidle -w before-sleep "/home/$USER/scripts/lock.sh"
 ### Input configuration
 input "*" {
 	xkb_layout "us,ru"
-        xkb_options "grp:caps_toggle"
+  xkb_options "grp:caps_toggle"
 	xkb_numlock enabled
 	}
 

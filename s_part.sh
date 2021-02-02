@@ -22,13 +22,13 @@ exec $CP --reflink=auto "$@"' > /usr/local/bin/cp
 chmod +x /usr/local/bin/cp
 echo "Installing additional software..."
 pacman -Syu --noconfirm
-pacman -S ttf-jetbrains-mono opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape fpc virtualbox virtualbox-host-dkms noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk14-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom --noconfirm
+pacman -S libmad ttf-jetbrains-mono opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape fpc virtualbox virtualbox-host-dkms noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm
 cd /root
-wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf9/pf-kernel-v5.10-pf9.tar.gz
-aunpack pf-kernel-v5.10-pf9.tar.gz
-mv config pf-kernel-v5.10-pf9/.config
-cd pf-kernel-v5.10-pf9
-make -j4
+wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf10/pf-kernel-v5.10-pf10.tar.gz
+aunpack pf-kernel-v5.10-pf10.tar.gz
+mv config pf-kernel-v5.10-pf10/.config
+cd pf-kernel-v5.10-pf10
+make -j8
 make modules_install
 make install
 rm /boot/System.map
@@ -64,11 +64,8 @@ chmod 600 /home/$uname/.gnupg/*
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 echo 'ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"' > /etc/udev/rules.d/99-udisks2.rules
-su - $uname -c 'set fish_greeting'
 systemctl enable earlyoom
-systemctl enable bluetooth
 systemctl enable cronie
-systemctl enable rfkill-unblock@all
 mkdir -p /home/$uname/real_home/Pictures/screenshots
 echo "Installing yay..."
 git clone https://aur.archlinux.org/yay-bin.git /tmp/aurbuild
@@ -84,9 +81,7 @@ SDL_VIDEODRIVER=wayland
 BEMENU_BACKEND=wayland
 _JAVA_AWT_WM_NONREPARENTING=1
 EDITOR=nvim
-JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-STUDIO_JDK=/usr/lib/jvm/java-14-openjdk
 TDESKTOP_DISABLE_GTK_INTEGRATION=1
 GRIM_DEFAULT_DIR=/home/$uname/real_home/Pictures/screenshots
 TERMINAL=kitty
@@ -99,10 +94,7 @@ load-module module-remap-source source_name=record_mono master=alsa_input.pci-00
 set-default-source record_mono
 ' >> /etc/pulse/default.pa
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/master/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
-echo "Enter your swapfile size in GiB"
-read -p 'Swap size : ' swsizeG
-echo "Creating swap file..."
-swsize=$((swsizeG*1024))
+swsize=20480
 truncate -s 0 /swap/swapfile
 chattr +C /swap/swapfile
 btrfs property set /swap/swapfile compression none
