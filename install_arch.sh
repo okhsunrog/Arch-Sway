@@ -11,8 +11,8 @@ ls /sys/firmware/efi/efivars > /dev/null && \
 sleep 7
 
 read -p 'Enter disk encryption password: ' cryptpass
-read -p 'Enter your hostname (name of your PC): ' hsname
-reflector --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
+hsname="danPC"
+reflector --verbose --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
 echo "Configuring disks..."
 sleep 3
 cat <<EOF | gdisk /dev/sda
@@ -58,7 +58,7 @@ mount -t btrfs -o subvol=@snapshots_root,$o LABEL=system /mnt/.snapshots
 mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mount -o X-mount.mkdir LABEL=EFI /mnt/boot
 echo "Installing packages..."
-pacstrap /mnt base base-devel mkinitcpio mkinitcpio-busybox linux-firmware intel-ucode btrfs-progs man-db man-pages neovim networkmanager
+pacstrap /mnt base base-devel mkinitcpio mkinitcpio-busybox linux-firmware intel-ucode man-db man-pages neovim networkmanager
 echo "Configuring..."
 genfstab -L /mnt >> /mnt/etc/fstab
 echo $hsname > /mnt/etc/hostname
@@ -70,7 +70,7 @@ echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 cp s_part.sh /mnt/
 cp after_install.sh /mnt/
 cp btrfs_map_physical.c /mnt/
-cp .zshrc /mnt/
+mv .config/.zshrc /mnt/
 cp config /mnt/root/
 cp linux-pf.preset /mnt/etc/mkinitcpio.d/
 cp -r .config /mnt/

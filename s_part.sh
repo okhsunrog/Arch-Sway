@@ -15,26 +15,27 @@ echo 'COMPRESSION=zstd
 MODULES=""
 BINARIES=""
 FILES=""
-HOOKS="base udev autodetect modconf block encrypt btrfs filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
+HOOKS="base udev autodetect modconf block encrypt filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
 echo '#!/bin/sh
 CP=/bin/cp
 exec $CP --reflink=auto "$@"' > /usr/local/bin/cp
 chmod +x /usr/local/bin/cp
 echo "Installing additional software..."
 pacman -Syu --noconfirm
-pacman -S libmad ttf-jetbrains-mono opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape fpc virtualbox virtualbox-host-dkms noto-fonts-emoji acpi systembus-notify vlc kitty ttf-dejavu otf-font-awesome xmlto pahole kmod inetutils bc libelf terminus-font reflector f2fs-tools exfatprogs snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-cb zathura-djvu zathura-pdf-mupdf zathura-ps udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool bzip2 cpio gzip lhasa lzop p7zip tar unace unrar unzip xz zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm
+pacman -S libmad ttf-jetbrains-mono opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape noto-fonts-emoji acpi systembus-notify kitty ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm
 cd /root
-wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf10/pf-kernel-v5.10-pf10.tar.gz
-aunpack pf-kernel-v5.10-pf10.tar.gz
-mv config pf-kernel-v5.10-pf10/.config
-cd pf-kernel-v5.10-pf10
-make -j8
+wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf11/pf-kernel-v5.10-pf11.tar.gz
+aunpack pf-kernel-v5.10-pf11.tar.gz
+mv config pf-kernel-v5.10-pf11/.config
+cd pf-kernel-v5.10-pf11
+make -j4
 make modules_install
 make install
 rm /boot/System.map
 mkinitcpio -P
-make headers_install INSTALL_HDR_PATH=/usr
 cd /
+rm -rf /lib/modules/*/{build,source}
+rm -rf /root/*
 echo "LOCALE=en_US.UTF-8
 KEYMAP=ru
 FONT=ter-u16b
@@ -51,7 +52,7 @@ echo "$rpass
 $rpass" | passwd
 echo "Creating a new user..."
 read -p 'Enter username: ' uname
-useradd -mG wheel,video,uucp,lock,vboxusers -s /usr/bin/zsh $uname
+useradd -mG wheel,video,uucp,lock -s /usr/bin/zsh $uname
 read -p "Enter $uname password: " upass
 echo "$upass
 $upass" | passwd $uname
@@ -62,7 +63,6 @@ chmod 600 /root/.gnupg/*
 chmod 700 /home/$uname/.gnupg
 chmod 600 /home/$uname/.gnupg/*
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
-echo "vboxdrv" > /etc/modules-load.d/virtualbox.conf
 echo 'ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"' > /etc/udev/rules.d/99-udisks2.rules
 systemctl enable earlyoom
 systemctl enable cronie
@@ -131,7 +131,6 @@ rm -rf /home/$uname/.local
 rm -rf /home/$uname/.config
 mv /.local /home/$uname/.local
 mv /.config /home/$uname/.config
-mv /.vim /home/$uname/.vim
 mv /after_install.sh /home/$uname/
 mv /.p10k.zsh /home/$uname/
 mv /.gtkrc-2.0 /home/$uname/

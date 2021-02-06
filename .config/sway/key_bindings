@@ -13,12 +13,10 @@ bindsym --to-code $mod+n exec "/home/$USER/scripts/dismiss_n.sh"
 #WiFi switch
 bindsym --to-code $mod+w exec "/home/$USER/scripts/wifi_toggle.sh"
 
-#Firefox
-bindsym --to-code $mod+f exec firefox
-
 #YouTube
 bindsym --to-code $mod+p exec "/home/$USER/scripts/play_vid.sh"
 bindsym --to-code $mod+Shift+p exec "/home/$USER/scripts/download_vid.sh"
+bindsym --to-code $mod+Ctrl+p exec "/home/$USER/scripts/download_music.sh"
 
 #Choose color on the screen and copy HEX to clipboard
 bindsym --to-code $mod+g exec "/home/$USER/scripts/choose_color.sh"
@@ -156,7 +154,7 @@ bindsym --to-code $mod+b splith
 bindsym --to-code $mod+v splitv
 
 # Make the current focus fullscreen
-bindsym --to-code $mod+Shift+f fullscreen
+bindsym --to-code $mod+f fullscreen
 
   
 # Toggle the current focus between tiling and floating mode

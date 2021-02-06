@@ -3,13 +3,13 @@ text-color=#b58900
 border-color=#268bd2
 font=Noto Sans 11
 border-size=2
-default-timeout=20000
+default-timeout=10000
 
 [urgency=low]
 background-color=#002b36
 text-color=#93a1a1
 border-color=#268bd2
-default-timeout=10000
+default-timeout=3000
 
 [urgency=high]
 background-color=#002b36

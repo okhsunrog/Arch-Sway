@@ -13,7 +13,7 @@ then
 	if pgrep wf-recorder > /dev/null; then
 		pkill wf-recorder > /dev/null
 	fi
-	notify-send "Screen sharing has been stopped"
+	notify-send --urgency=low "Screen sharing has been stopped"
 
 else
 	echo "1 - Share to camera
@@ -24,7 +24,7 @@ Choose wisely: "
 	if [ ${REPLY} = "1" ] ; then
 			#Replace with parameters of your monitors
 			wf-recorder --muxer=v4l2 --codec=rawvideo --pixel-format=yuv420p --geometry="1366,0 1920x1080" --file=/dev/video2 &
-			notify-send "Sharing to camera has been started"
+			notify-send --urgency=low "Sharing to camera has been started"
 		else
 	if ! pgrep wf-recorder > /dev/null; then
 				#Replace with parameters of your monitors
@@ -41,7 +41,7 @@ Choose wisely: "
 		# swaymsg [class=ffplay] move position 1900 1000
 		# swaymsg focus tiling
 	fi
-	notify-send "Sharing to window has been started"
+	notify-send --urgency=low "Sharing to window has been started"
 		fi
 } &> /dev/null
 fi

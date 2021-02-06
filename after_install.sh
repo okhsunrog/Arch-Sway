@@ -3,7 +3,7 @@ mkdir temp mnt build share Videos Downloads
 broot --install
 echo "Stay near the pc, you will have to enter root password for a few times"
 echo "Updating mirrors"
-sudo reflector --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
+sudo reflector --verbose --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
 echo "Setting timezone and time sync..."
 timedatectl set-ntp true
 timedatectl set-timezone Europe/Moscow 
@@ -12,7 +12,7 @@ git config --global user.email "dghak@bk.ru"
 (crontab -l 2>/dev/null; echo "*/2 * * * * ~/scripts/hib_on_low.sh >/dev/null 2>&1") | crontab -
 echo "Installing additiional packages..."
 gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
-yay -S mellowplayer swaynagmode qt5-styleplugins gtk-theme-numix-solarized numix-icon-theme-git kotatogram-desktop-bin virtualbox-ext-oracle mimeo perl-file-mimeinfo libtorrent-rasterbar-1_2-git qbittorrent-enhanced-git pipewire libpipewire02 xdg-desktop-portal xdg-desktop-portal-wlr fedora-firefox-wayland-bin chromium wofi-hg ytop-bin nerd-fonts-dejavu-complete i3ipc-python-git clipman tor-browser smtube youtube-dl translate-shell obs-studio-wayland wlrobs zoom jmtpfs swaylock-effects-git yandex-disk adbfs-rootless-git scrcpy nm-connection-editor networkmanager-openvpn hunspell hunspell-en_US hunspell-ru-aot-ieyo hyphen hyphen-en hyphen-ru --noconfirm --sudoloop
+yay -S  upd72020x-fw mellowplayer swaynagmode qt5-styleplugins gtk-theme-numix-solarized numix-icon-theme-git kotatogram-desktop-bin mimeo perl-file-mimeinfo qbittorrent-enhanced-git pipewire libpipewire02 xdg-desktop-portal xdg-desktop-portal-wlr fedora-firefox-wayland-bin chromium wofi-hg ytop-bin nerd-fonts-dejavu-complete i3ipc-python-git clipman tor-browser smtube youtube-dl translate-shell obs-studio-wayland wlrobs zoom swaylock-effects-git yandex-disk adbfs-rootless-git scrcpy nm-connection-editor hunspell hunspell-en_US hunspell-ru-aot-ieyo hyphen hyphen-en hyphen-ru --noconfirm --sudoloop
 yay -Rdd xdg-utils --noconfirm
 yay -S xdg-utils-mimeo --noconfirm
 echo "Zoom configuration..."
