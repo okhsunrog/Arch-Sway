@@ -3,7 +3,7 @@ mkdir temp mnt build share Videos Downloads
 broot --install
 echo "Stay near the pc, you will have to enter root password for a few times"
 echo "Updating mirrors"
-sudo reflector --verbose --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
+sudo reflector --verbose --sort rate --protocol https --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
 echo "Setting timezone and time sync..."
 timedatectl set-ntp true
 timedatectl set-timezone Europe/Moscow 

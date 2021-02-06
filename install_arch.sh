@@ -12,7 +12,7 @@ sleep 7
 
 read -p 'Enter disk encryption password: ' cryptpass
 hsname="danPC"
-reflector --verbose --sort rate --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
+reflector --verbose --sort rate --protocol https --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
 echo "Configuring disks..."
 sleep 3
 cat <<EOF | gdisk /dev/sda
