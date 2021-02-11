@@ -22,7 +22,9 @@ exec $CP --reflink=auto "$@"' > /usr/local/bin/cp
 chmod +x /usr/local/bin/cp
 echo "Installing additional software..."
 pacman -Syu --noconfirm
-pacman -S fpc libmad ttf-jetbrains-mono opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape noto-fonts-emoji acpi systembus-notify kitty ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget zsh pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm
+pacman -S android-udev fpc libmad opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape noto-fonts-emoji acpi systembus-notify ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget fish pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm
+pacman -U /bins/* --noconfirm
+rm -rf /bins
 cd /root
 wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf11/pf-kernel-v5.10-pf11.tar.gz
 aunpack pf-kernel-v5.10-pf11.tar.gz
@@ -52,7 +54,7 @@ echo "$rpass
 $rpass" | passwd
 echo "Creating a new user..."
 read -p 'Enter username: ' uname
-useradd -mG wheel,video,uucp,lock -s /usr/bin/zsh $uname
+useradd -mG wheel,video,uucp,lock -s /usr/bin/fish $uname
 read -p "Enter $uname password: " upass
 echo "$upass
 $upass" | passwd $uname
@@ -66,6 +68,7 @@ sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 echo 'ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{UDISKS_FILESYSTEM_SHARED}="1"' > /etc/udev/rules.d/99-udisks2.rules
 systemctl enable earlyoom
 systemctl enable cronie
+su - $uname -c 'set fish_greeting'
 mkdir -p /home/$uname/real_home/Pictures/screenshots
 echo "Installing yay..."
 git clone https://aur.archlinux.org/yay-bin.git /tmp/aurbuild
@@ -84,7 +87,7 @@ EDITOR=nvim
 QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 TDESKTOP_DISABLE_GTK_INTEGRATION=1
 GRIM_DEFAULT_DIR=/home/$uname/real_home/Pictures/screenshots
-TERMINAL=kitty
+TERMINAL=foot
 " >> /etc/environment
 echo "$uname ALL=NOPASSWD: /usr/bin/systemctl hibernate
 " >> /etc/sudoers.d/custom
@@ -116,25 +119,13 @@ linux           /vmlinuz
 initrd          /intel-ucode.img
 initrd          /initramfs.img
 options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rd.luks.options=discard rw quiet" > /boot/loader/entries/arch.conf
-wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-mv install.sh /home/$uname/
-su - $uname -c 'sh install.sh --unattended'
-rm /home/$uname/install.sh
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/$uname/.oh-my-zsh/custom/themes/powerlevel10k
-git clone https://github.com/zsh-users/zsh-completions /home/$uname/.oh-my-zsh/custom/plugins/zsh-completions
-git clone https://github.com/zsh-users/zsh-autosuggestions /home/$uname/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-echo "if [ "$(tty)" = "/dev/tty1" ]; then
-    ./after_install.sh
-fi" > /home/$uname/.zprofile 
 mv /Wallpapers /home/$uname/real_home/Pictures/Wallpapers
 rm -rf /home/$uname/.local
 rm -rf /home/$uname/.config
 mv /.local /home/$uname/.local
 mv /.config /home/$uname/.config
 mv /after_install.sh /home/$uname/
-mv /.p10k.zsh /home/$uname/
 mv /.gtkrc-2.0 /home/$uname/
-mv /.zshrc /home/$uname/
 mv /scripts /home/$uname/scripts
 chmod +x /home/$uname/scripts/*
 chown -R $uname:$uname /home/$uname

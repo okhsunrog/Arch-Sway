@@ -12,19 +12,12 @@ git config --global user.email "dghak@bk.ru"
 (crontab -l 2>/dev/null; echo "*/2 * * * * ~/scripts/hib_on_low.sh >/dev/null 2>&1") | crontab -
 echo "Installing additiional packages..."
 gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
-yay -S  upd72020x-fw mellowplayer swaynagmode qt5-styleplugins gtk-theme-numix-solarized numix-icon-theme-git kotatogram-desktop-bin mimeo perl-file-mimeinfo qbittorrent-enhanced-git pipewire libpipewire02 xdg-desktop-portal xdg-desktop-portal-wlr fedora-firefox-wayland-bin chromium wofi-hg ytop-bin nerd-fonts-dejavu-complete i3ipc-python-git clipman tor-browser smtube youtube-dl translate-shell obs-studio-wayland wlrobs zoom swaylock-effects-git yandex-disk adbfs-rootless-git scrcpy nm-connection-editor hunspell hunspell-en_US hunspell-ru-aot-ieyo hyphen hyphen-en hyphen-ru --noconfirm --sudoloop
+yay -S upd72020x-fw youtube-music-appimage swaynagmode qt5-styleplugins gtk-theme-numix-solarized numix-icon-theme-git kotatogram-desktop-bin mimeo perl-file-mimeinfo qbittorrent-enhanced-git pipewire libpipewire02 xdg-desktop-portal xdg-desktop-portal-wlr fedora-firefox-wayland-bin google-chrome wofi-hg ytop-bin nerd-fonts-dejavu-complete i3ipc-python-git clipman tor-browser smtube youtube-dl translate-shell obs-studio-wayland wlrobs zoom swaylock-effects-git yandex-disk adbfs-rootless-git scrcpy nm-connection-editor hunspell hunspell-en_US hunspell-ru-aot-ieyo hyphen hyphen-en hyphen-ru --noconfirm --sudoloop
 yay -Rdd xdg-utils --noconfirm
+yay -Rns vlc --noconfirm
 yay -S xdg-utils-mimeo --noconfirm
-echo "Zoom configuration..."
-cp /usr/share/applications/Zoom.desktop ~/.local/share/applications
-sed -i 's+Exec=/usr/bin/zoom %U+Exec=env QT_QPA_PLATFORM=xcb /usr/bin/zoom %U+g' ~/.local/share/applications/Zoom.desktop
-update-desktop-database ~/.local/share/applications &> /dev/null
 yay -Rns gnu-free-fonts --noconfirm --sudoloop
 nvim -c ":PlugInstall"
-echo "# If running from tty1 start sway
-if [ "$(tty)" = "/dev/tty1" ]; then
-    exec sway
-fi" > ~/.zprofile
 sudo umount -R /.snapshots
 sudo umount -R /home/.snapshots
 sudo rm -r /.snapshots
@@ -46,4 +39,5 @@ sudo snapper -c root create --description "After installation"
 sudo snapper -c home create --description "After installation"
 sleep 2
 rm "after_install.sh"
+rm .local/share/applications/*Kotatogram_Desktop.desktop
 reboot

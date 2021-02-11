@@ -56,11 +56,15 @@ mount -t btrfs -o subvol=@swap,$o LABEL=system /mnt/swap
 mount -t btrfs -o subvol=@snapshots_home,$o LABEL=system /mnt/home/.snapshots
 mount -t btrfs -o subvol=@snapshots_root,$o LABEL=system /mnt/.snapshots
 mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
-mount -o X-mount.mkdir LABEL=EFI /mnt/boot
+mkdir /mnt/{boot,etc}
+genfstab -L /mnt > /mnt/etc/fstab
+mount LABEL=EFI /mnt/boot
+echo "
+LABEL=EFI               /boot           vfat            auto,nofail,x-systemd.device-timeout=1,noatime,nodiratime 0 0
+" >> /mnt/etc/fstab
 echo "Installing packages..."
 pacstrap /mnt base base-devel mkinitcpio mkinitcpio-busybox linux-firmware intel-ucode man-db man-pages neovim networkmanager
 echo "Configuring..."
-genfstab -L /mnt >> /mnt/etc/fstab
 echo $hsname > /mnt/etc/hostname
 echo "127.0.0.1	localhost
 ::1		localhost
@@ -70,14 +74,13 @@ echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 cp s_part.sh /mnt/
 cp after_install.sh /mnt/
 cp btrfs_map_physical.c /mnt/
-mv .config/.zshrc /mnt/
 cp config /mnt/root/
 cp linux-pf.preset /mnt/etc/mkinitcpio.d/
 cp -r .config /mnt/
 cp -r .local /mnt/
+cp -r bins /mnt/
 cp -r Wallpapers /mnt/
 cp -r scripts /mnt/
-cp .p10k.zsh /mnt/
 cp .gtkrc-2.0 /mnt/
 chmod +x /mnt/after_install.sh
 chmod +x /mnt/s_part.sh

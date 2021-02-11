@@ -1,10 +1,10 @@
 # mod is 'Windows' key
 set $mod Mod4
-set $term kitty
+set $term footclient
 
 #Toggle touchpad
-#bindsym --to-code $mod+y input 1267:91:Elan_Touchpad events disabled
-#bindsym --to-code $mod+Shift+y input 1267:91:Elan_Touchpad events enabled
+bindsym --to-code $mod+y input 1267:91:Elan_Touchpad events disabled
+bindsym --to-code $mod+Shift+y input 1267:91:Elan_Touchpad events enabled
 
 #Notifications dismiss
 bindsym --to-code $mod+Shift+n exec "/home/$USER/scripts/dismiss_n_a.sh"
