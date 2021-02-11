@@ -97,7 +97,10 @@ load-module module-remap-source source_name=record_mono master=alsa_input.pci-00
 set-default-source record_mono
 ' >> /etc/pulse/default.pa
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/master/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
-swsize=20480
+echo "Enter your swapfile size in GiB"
+read -p 'Swap size : ' swsizeG
+echo "Creating swap file..."
+swsize=$((swsizeG*1024))
 truncate -s 0 /swap/swapfile
 chattr +C /swap/swapfile
 btrfs property set /swap/swapfile compression none
