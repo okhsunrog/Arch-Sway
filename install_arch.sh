@@ -11,7 +11,7 @@ ls /sys/firmware/efi/efivars > /dev/null && \
 sleep 7
 
 read -p 'Enter disk encryption password: ' cryptpass
-hsname="danPC"
+read -p 'Enter host name:' hsname
 reflector --verbose --sort rate --protocol https --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
 echo "Configuring disks..."
 sleep 3

@@ -22,7 +22,7 @@ show_marks = "visible"
 [[block]]
 block = "networkmanager"
 primary_only = true
-on_click = "foot --app-id=nmtui --title='Network configuration' nmtui"
+on_click = "footclient --app-id=nmtui --title='Network configuration' nmtui"
 interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
 interface_name_include = []
 device_format = "{icon}{ap}"

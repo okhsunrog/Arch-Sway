@@ -61,6 +61,6 @@ Comment[uk]=Перегляд системних процесів
 Comment[zh_CN]=显示系统进程
 Comment[zh_TW]=顯示系統行程
 Icon=htop
-Exec=termite -t 'Htop' -e htop
+Exec=footclient --title='Htop' htop
 Categories=System;Monitor;ConsoleOnly;
 Keywords=system;process;task

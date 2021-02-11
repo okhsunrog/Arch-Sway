@@ -3,5 +3,5 @@ Type=Application
 Name=Ytop
 Comment=Resource Monitor
 Icon=utilities-terminal
-Exec=termite -t 'Ytop' -e ytop
+Exec=footclient --title='Ytop' ytop
 Categories=System;Monitor;ConsoleOnly;
