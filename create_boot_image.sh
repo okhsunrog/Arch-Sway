@@ -9,7 +9,7 @@ echo "Running..."
 pacman -S archiso --noconfirm --needed
 cp -r /usr/share/archiso/configs/releng /root/archlive
 rm -rf /root/archlive/airootfs/root
-git clone https://github.com/okhsunrog/arch_btrfs_enc.git /root/archlive/airootfs/root/ 
+git clone https://github.com/okhsunrog/Arch-Sway.git /root/archlive/airootfs/root/ 
 rm /root/archlive/airootfs/root/create_boot_image.sh
 rm /root/archlive/airootfs/root/flash_boot_image.sh
 rm -rf /root/archlive/airootfs/root/.git
