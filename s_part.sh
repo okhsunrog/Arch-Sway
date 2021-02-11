@@ -2,6 +2,7 @@
 mount -a
 locale-gen
 hwclock --systohc
+mkinitcpio -P
 systemctl enable NetworkManager
 rm /etc/mkinitcpio.conf
 sed -i 's/# deny = 3/deny = 0/g' /etc/security/faillock.conf
@@ -25,19 +26,6 @@ pacman -Syu --noconfirm
 pacman -S android-udev fpc libmad opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape noto-fonts-emoji acpi systembus-notify ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget fish pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm
 pacman -U /bins/* --noconfirm
 rm -rf /bins
-cd /root
-wget https://gitlab.com/post-factum/pf-kernel/-/archive/v5.10-pf11/pf-kernel-v5.10-pf11.tar.gz
-aunpack pf-kernel-v5.10-pf11.tar.gz
-mv config pf-kernel-v5.10-pf11/.config
-cd pf-kernel-v5.10-pf11
-make -j4
-make modules_install
-make install
-rm /boot/System.map
-mkinitcpio -P
-cd /
-rm -rf /lib/modules/*/{build,source}
-rm -rf /root/*
 echo "LOCALE=en_US.UTF-8
 KEYMAP=ru
 FONT=ter-u16b
@@ -97,7 +85,10 @@ load-module module-remap-source source_name=record_mono master=alsa_input.pci-00
 set-default-source record_mono
 ' >> /etc/pulse/default.pa
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/master/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
-swsize=20480
+echo "Enter your swapfile size in GiB"
+read -p 'Swap size : ' swsizeG
+echo "Creating swap file..."
+swsize=$((swsizeG*1024))
 truncate -s 0 /swap/swapfile
 chattr +C /swap/swapfile
 btrfs property set /swap/swapfile compression none
@@ -115,9 +106,9 @@ echo "Installing bootloader..."
 bootctl --path=/boot install
 echo "default arch.conf" > /boot/loader/loader.conf
 echo "title           Arch Linux
-linux           /vmlinuz
+linux           /vmlinuz-linux
 initrd          /intel-ucode.img
-initrd          /initramfs.img
+initrd          /initramfs-linux.img
 options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rd.luks.options=discard rw quiet" > /boot/loader/entries/arch.conf
 mv /Wallpapers /home/$uname/real_home/Pictures/Wallpapers
 rm -rf /home/$uname/.local
