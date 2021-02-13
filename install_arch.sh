@@ -3,7 +3,7 @@
 rmmod pcspkr
 echo "Welcome to the Arch-Sway installing script!"
 sleep 7
-ping -c 2 archlinux.org || echo "No internet connection!"
+ping -c 2 archlinux.org || { echo "No internet connection!"; exit; }
 timedatectl set-ntp true
 
 sleep 7
