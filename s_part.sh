@@ -109,7 +109,7 @@ echo "title           Arch Linux
 linux           /vmlinuz-linux-okhsunrog
 initrd          /intel-ucode.img
 initrd          /initramfs-linux-okhsunrog.img
-options         cryptdevice=PARTLABEL=cryptsystem:luks:allow-discards root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rd.luks.options=discard rw quiet" > /boot/loader/entries/arch.conf
+options         cryptdevice=/dev/disk/by-path/pci-0000:00:17.0-ata-1:crytsystem:allow-discards crypto=:aes-xts-plain64:512:0: cryptkey=LABEL=EFI:vfat:/mykeyfile root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rw quiet" > /boot/loader/entries/arch.conf
 mv /Wallpapers /home/$uname/real_home/Pictures/Wallpapers
 rm -rf /home/$uname/.local
 rm -rf /home/$uname/.config

@@ -8,32 +8,25 @@ read -p 'Enter host name:' hsname
 reflector --verbose --sort rate --protocol https --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
 echo "Configuring disks..."
 sleep 3
-cat <<EOF | gdisk /dev/sda
+cat <<EOF | gdisk /dev/sdc
 o
 y
 n
 1
 
-+100M
++50M
 ef00
 c
 EFI
-n
-2
-
-
-
-c
-2
-cryptsystem
 w
 y
 EOF
 sleep 3
-mkfs.fat -F32 -n EFI /dev/disk/by-partlabel/EFI
-echo $cryptpass | cryptsetup luksFormat --align-payload=8192 -s 256 -c aes-xts-plain64 /dev/disk/by-partlabel/cryptsystem
-echo $cryptpass | cryptsetup open /dev/disk/by-partlabel/cryptsystem system
-mkfs.btrfs --force --label system /dev/mapper/system
+mkfs.vfat -n EFI /dev/disk/by-partlabel/EFI
+touch mykeyfile
+dd bs=64 count=1 if=/dev/random of=mykeyfile iflag=fullblock
+cryptsetup --cipher=aes-xts-plain64 --offset=0 --key-file=/dev/sdc --key-size=512 open --type plain /dev/sda cryptsystem
+mkfs.btrfs --force --label system /dev/mapper/cryptsystem
 o=commit=120,compress=zstd,defaults,X-mount.mkdir,ssd,discard=async,noatime,nodiratime,space_cache
 mount -t btrfs LABEL=system /mnt
 btrfs subvolume create /mnt/@
@@ -52,8 +45,9 @@ mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mkdir /mnt/{boot,etc}
 genfstab -L /mnt > /mnt/etc/fstab
 mount LABEL=EFI /mnt/boot
+cp mykeyfile /mnt/boot/
 echo "
-LABEL=EFI               /boot           vfat            auto,nofail,x-systemd.device-timeout=1,noatime,nodiratime 0 0
+LABEL=EFI               /boot           vfat            noauto,rw,noatime 0 2
 " >> /mnt/etc/fstab
 echo "Installing packages..."
 pacstrap /mnt base base-devel mkinitcpio mkinitcpio-busybox linux-firmware intel-ucode man-db man-pages neovim networkmanager
@@ -80,5 +74,4 @@ chmod +x /mnt/s_part.sh
 arch-chroot /mnt ./s_part.sh
 rm /mnt/s_part.sh
 sleep 1
-reboot
-
+poweroff
