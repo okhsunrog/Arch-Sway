@@ -1,7 +1,0 @@
-ALL_config="/etc/mkinitcpio.conf"
-ALL_kver="/boot/vmlinuz"
-
-PRESETS=('default')
-
-default_image="/boot/initramfs.img"
-

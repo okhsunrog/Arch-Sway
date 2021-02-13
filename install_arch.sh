@@ -75,7 +75,7 @@ cp s_part.sh /mnt/
 cp after_install.sh /mnt/
 cp btrfs_map_physical.c /mnt/
 cp config /mnt/root/
-cp linux-pf.preset /mnt/etc/mkinitcpio.d/
+cp linux-okhsunrog.preset /mnt/etc/mkinitcpio.d/
 cp -r .config /mnt/
 cp -r .local /mnt/
 cp -r bins /mnt/
