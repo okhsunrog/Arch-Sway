@@ -3,7 +3,6 @@ rmmod pcspkr
 echo "Welcome to the Arch-Sway installing script!"
 ping -c 2 archlinux.org || { echo "No internet connection!"; exit; }
 timedatectl set-ntp true
-sleep 1
 read -p 'Enter disk encryption password: ' cryptpass
 read -p 'Enter host name:' hsname
 reflector --verbose --sort rate --protocol https --country Russia --country Germany --age 12 --save /etc/pacman.d/mirrorlist
