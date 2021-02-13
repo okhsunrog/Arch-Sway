@@ -25,7 +25,7 @@ sleep 3
 mkfs.vfat -n EFI /dev/disk/by-partlabel/EFI
 touch mykeyfile
 dd bs=64 count=1 if=/dev/random of=mykeyfile iflag=fullblock
-cryptsetup --cipher=aes-xts-plain64 --offset=0 --key-file=/dev/sdc --key-size=512 open --type plain /dev/sda cryptsystem
+cryptsetup --cipher=aes-xts-plain64 --offset=0 --key-file=mykeyfile --key-size=512 open --type plain /dev/sda cryptsystem
 mkfs.btrfs --force --label system /dev/mapper/cryptsystem
 o=commit=120,compress=zstd,defaults,X-mount.mkdir,ssd,discard=async,noatime,nodiratime,space_cache
 mount -t btrfs LABEL=system /mnt
