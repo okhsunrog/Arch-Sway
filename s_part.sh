@@ -1,5 +1,4 @@
 #!/bin/bash
-mount -a
 locale-gen
 hwclock --systohc
 systemctl enable NetworkManager

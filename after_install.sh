@@ -20,7 +20,6 @@ yay -S virtualbox-ext-oracle upd72020x-fw youtube-music-appimage swaynagmode qt5
 yay -Rdd xdg-utils --noconfirm
 yay -Rns vlc --noconfirm
 yay -S xdg-utils-mimeo --noconfirm
-sudo mkinitcpio -P
 nvim -c ":PlugInstall"
 sudo umount -R /.snapshots
 sudo umount -R /home/.snapshots
