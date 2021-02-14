@@ -1,4 +1,7 @@
 #!/bin/bash
+umount -R /mnt
+umount /mnt2
+cryptsetup close /dev/mapper/cryptsystem
 mkdir temp
 mkdir /tmp/exxtr
 mount LABEL=EFI temp
@@ -9,7 +12,7 @@ cd /tmp/exxtr
 lsinitcpio -x initramfs*
 cp crypto_keyfile.bin ~/
 rm -rf /tmp/exxtr
-cd ~
+cd
 cryptsetup --batch-mode --cipher=aes-xts-plain64 --offset=0 --key-file=crypto_keyfile.bin --key-size=512 open --type plain /dev/sda cryptsystem
 o=commit=120,compress=zstd,defaults,ssd,discard=async,noatime,nodiratime,space_cache              
 mount -t btrfs LABEL=system /mnt
