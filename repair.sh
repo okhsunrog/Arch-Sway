@@ -12,7 +12,6 @@ rm -rf /tmp/exxtr
 cd ~
 cryptsetup --batch-mode --cipher=aes-xts-plain64 --offset=0 --key-file=crypto_keyfile.bin --key-size=512 open --type plain /dev/sda cryptsystem
 o=commit=120,compress=zstd,defaults,ssd,discard=async,noatime,nodiratime,space_cache
-umount -R /mnt
 mount -t btrfs -o subvol=@,$o LABEL=system /mnt
 mount -t btrfs -o subvol=@home,$o LABEL=system /mnt/home
 mount -t btrfs -o subvol=@swap,$o LABEL=system /mnt/swap
