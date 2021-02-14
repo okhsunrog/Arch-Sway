@@ -14,7 +14,7 @@ sed -i 's/#HibernateDelaySec=180min/HibernateDelaySec=120min/g' /etc/systemd/sle
 echo 'COMPRESSION=zstd
 MODULES=""
 BINARIES=""
-FILES=""
+FILES="crypto_keyfile.bin"
 HOOKS="base udev autodetect modconf block encrypt filesystems keyboard resume fsck"' > /etc/mkinitcpio.conf
 echo '#!/bin/sh
 CP=/bin/cp
@@ -25,6 +25,8 @@ pacman -Syu --noconfirm
 pacman -S virtualbox virtualbox-host-dkms firefox android-udev fpc libmad opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape noto-fonts-emoji acpi systembus-notify ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget fish pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm
 pacman -U /bins/* --noconfirm
 rm -rf /bins
+dkms install --no-depmod -m vboxhost -v 6.1.18_OSE
+pacman -Suy
 echo "LOCALE=en_US.UTF-8
 KEYMAP=ru
 FONT=ter-u16b
@@ -109,7 +111,7 @@ echo "title           Arch Linux
 linux           /vmlinuz-linux-okhsunrog
 initrd          /intel-ucode.img
 initrd          /initramfs-linux-okhsunrog.img
-options         cryptdevice=/dev/disk/by-path/pci-0000:00:17.0-ata-1:crytsystem:allow-discards crypto=:aes-xts-plain64:512:0: cryptkey=LABEL=EFI:vfat:/mykeyfile root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rw quiet" > /boot/loader/entries/arch.conf
+options         cryptdevice=/dev/disk/by-id/ata-WDC_WDS100T2B0A-00SM50_203707800166:cryptsystem:allow-discards crypto=:aes-xts-plain64:512:0: root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rw quiet" > /boot/loader/entries/arch.conf
 mv /Wallpapers /home/$uname/real_home/Pictures/Wallpapers
 rm -rf /home/$uname/.local
 rm -rf /home/$uname/.config

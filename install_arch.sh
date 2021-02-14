@@ -16,16 +16,14 @@ n
 
 +50M
 ef00
-c
-EFI
 w
 y
 EOF
 sleep 3
-mkfs.vfat -n EFI /dev/disk/by-partlabel/EFI
-touch mykeyfile
-dd bs=64 count=1 if=/dev/random of=mykeyfile iflag=fullblock
-cryptsetup --cipher=aes-xts-plain64 --offset=0 --key-file=mykeyfile --key-size=512 open --type plain /dev/sda cryptsystem
+mkfs.vfat -n EFI /dev/sdc1
+touch crypto_keyfile.bin
+dd bs=64 count=1 if=/dev/random of=crypto_keyfile.bin iflag=fullblock
+cryptsetup --batch-mode --cipher=aes-xts-plain64 --offset=0 --key-file=crypto_keyfile.bin --key-size=512 open --type plain /dev/sda cryptsystem
 mkfs.btrfs --force --label system /dev/mapper/cryptsystem
 o=commit=120,compress=zstd,defaults,X-mount.mkdir,ssd,discard=async,noatime,nodiratime,space_cache
 mount -t btrfs LABEL=system /mnt
@@ -45,7 +43,8 @@ mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mkdir /mnt/{boot,etc}
 genfstab -L /mnt > /mnt/etc/fstab
 mount LABEL=EFI /mnt/boot
-cp mykeyfile /mnt/boot/
+cp crypto_keyfile.bin /mnt/boot/
+cp crypto_keyfile.bin /mnt
 echo "
 LABEL=EFI               /boot           vfat            noauto,rw,noatime 0 2
 " >> /mnt/etc/fstab
@@ -61,7 +60,6 @@ echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 cp s_part.sh /mnt/
 cp after_install.sh /mnt/
 cp btrfs_map_physical.c /mnt/
-cp config /mnt/root/
 cp linux-okhsunrog.preset /mnt/etc/mkinitcpio.d/
 cp -r .config /mnt/
 cp -r .local /mnt/
