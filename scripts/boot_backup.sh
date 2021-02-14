@@ -31,8 +31,10 @@ cp -r /boot/* tempmnt/
 umount tempmnt
 losetup -d /dev/loop0
 rm -rf tempmnt
-mv boot.img /home/danila/
-chown danila /home/danila/boot.img
-
+tar --remove-files -cvjf boot.tar.bz2 boot.img
+mv boot.tar.bz2 "/home/danila/real_home/bootbackups/boot_backup_$(uname -r)_$(date +"%d_%m_%Y_%H_%M").tar.bz2"
+chown danila:danila /home/danila/real_home/bootbackups/boot_backup_*
+chmod 644 /home/danila/real_home/bootbackups/boot_backup_*
 fi
+
 

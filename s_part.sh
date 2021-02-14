@@ -62,6 +62,7 @@ systemctl enable earlyoom
 systemctl enable cronie
 su - $uname -c 'set fish_greeting'
 mkdir -p /home/$uname/real_home/Pictures/screenshots
+mkdir /home/$uname/real_home/bootbackups
 echo "Installing yay..."
 git clone https://aur.archlinux.org/yay-bin.git /tmp/aurbuild
 chmod 777 /tmp/aurbuild
