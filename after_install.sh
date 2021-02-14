@@ -21,6 +21,7 @@ yay -Rdd xdg-utils --noconfirm
 yay -Rns vlc --noconfirm
 BUILDDIR=/tmp/makepkg yay -S xdg-utils-mimeo --noconfirm
 nvim -c ":PlugInstall"
+sudo btrfs quota enable /
 sudo umount -R /.snapshots
 sudo umount -R /home/.snapshots
 sudo rm -r /.snapshots
@@ -34,8 +35,12 @@ sudo mkdir /home/.snapshots
 sudo mount -a
 sudo chmod 750 /.snapshots
 sudo chmod 750 /home/.snapshots
-sudo sed -i 's/TIMELINE_CREATE="yes"/TIMELINE_CREATE="no"/g' /etc/snapper/configs/root
-sudo sed -i 's/TIMELINE_CREATE="yes"/TIMELINE_CREATE="no"/g' /etc/snapper/configs/home
+sudo sed -i 's/TIMELINE_LIMIT_MONTHLY="10"/TIMELINE_LIMIT_MONTHLY="0"/g' /etc/snapper/configs/root
+sudo sed -i 's/TIMELINE_LIMIT_YEARLY="10"/TIMELINE_LIMIT_YEARLY="0"/g' /etc/snapper/configs/root
+sudo sed -i 's/TIMELINE_LIMIT_HOURLY="10"/TIMELINE_LIMIT_HOURLY="20"/g' /etc/snapper/configs/root
+sudo sed -i 's/TIMELINE_LIMIT_MONTHLY="10"/TIMELINE_LIMIT_MONTHLY="0"/g' /etc/snapper/configs/home
+sudo sed -i 's/TIMELINE_LIMIT_YEARLY="10"/TIMELINE_LIMIT_YEARLY="0"/g' /etc/snapper/configs/home
+sudo sed -i 's/TIMELINE_LIMIT_HOURLY="10"/TIMELINE_LIMIT_HOURLY="20"/g' /etc/snapper/configs/home
 sudo mkdir /.bootbackup
 sudo cp -r /boot /.bootbackup/
 sudo snapper -c root create --description "After installation"
