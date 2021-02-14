@@ -4,6 +4,10 @@ hwclock --systohc
 systemctl enable NetworkManager
 rm /etc/mkinitcpio.conf
 sed -i 's/# deny = 3/deny = 0/g' /etc/security/faillock.conf
+sed -i 's/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -z - --threads=0)/g' /etc/makepkg.conf
+sed -i 's/COMPRESSGZ=(gzip -c -f -n)/COMPRESSGZ=(pigz -c -f -n)/g' /etc/makepkg.conf
+sed -i 's/COMPRESSBZ2=(bzip2 -c -f)/COMPRESSBZ2=(pbzip2 -c -f)/g' /etc/makepkg.conf
+sed -i 's/COMPRESSZST=(zstd -c -z -q -)/COMPRESSZST=(zstd -c -z -q - --threads=0)/g' /etc/makepkg.conf
 sed -i 's/CFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"/CFLAGS="-march=native -O2 -pipe -fno-plt"/g' /etc/makepkg.conf
 sed -i 's/CXXFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"/CXXFLAGS="-march=native -O2 -pipe -fno-plt"/g' /etc/makepkg.conf
 sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j4"/g' /etc/makepkg.conf
@@ -22,7 +26,7 @@ exec $CP --reflink=auto "$@"' > /usr/local/bin/cp
 chmod +x /usr/local/bin/cp
 echo "Installing additional software..."
 pacman -Syu --noconfirm
-pacman -S virtualbox virtualbox-host-dkms firefox android-udev fpc libmad opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape noto-fonts-emoji acpi systembus-notify ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget fish pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm
+pacman -S pigz pbzip2 virtualbox virtualbox-host-dkms firefox android-udev fpc libmad opus flac pcmanfm speedtest-cli fzf tree broot lxappearance texlive-langcyrillic texlive-core texlive-science qt5-wayland inkscape noto-fonts-emoji acpi systembus-notify ttf-dejavu otf-font-awesome xmlto pahole inetutils bc terminus-font reflector snapper i3status-rust rsync cronie wf-recorder imagemagick upower tk python-pip swayidle zathura zathura-djvu zathura-pdf-mupdf udiskie udisks2 htop qt5ct meson ninja scdoc brightnessctl playerctl mako gimp code libreoffice-fresh xorg-server-xwayland ffmpeg jdk-openjdk jdk8-openjdk mpv imv openssh wget fish pulseaudio pulseaudio-alsa bemenu-wlroots libva-intel-driver ttf-opensans git sway neofetch pavucontrol ranger grim slurp jq wl-clipboard neofetch android-tools atool cpio lhasa lzop p7zip unace unrar unzip zip earlyoom highlight mediainfo odt2txt perl-image-exiftool --noconfirm
 pacman -U /bins/* --noconfirm
 rm -rf /bins
 echo "LOCALE=en_US.UTF-8
@@ -33,7 +37,7 @@ TIMEZONE=Europe/Moscow
 HARDWARECLOCK=UTC
 USECOLOR=yes" > /etc/vconsole.conf
 echo "keyserver hkp://pool.sks-keyservers.net
-keyserver https://sks-keyservers.net/
+keyserver https://sks-keyservers.net////
 keyserver https://keys.mailvelope.com/
 keyserver https://keys.openpgp.org/" >> /root/.gnupg/dirmngr.conf
 read -p 'Enter root password: ' rpass
@@ -61,7 +65,7 @@ mkdir -p /home/$uname/real_home/Pictures/screenshots
 echo "Installing yay..."
 git clone https://aur.archlinux.org/yay-bin.git /tmp/aurbuild
 chmod 777 /tmp/aurbuild
-su - $uname -c 'cd /tmp/aurbuild; makepkg -s'
+su - $uname -c 'cd /tmp/aurbuild; BUILDDIR=/tmp/makepkg makepkg -s'
 pacman -U /tmp/aurbuild/*.pkg.* --noconfirm
 rm -rf /tmp/aurbuild
 echo "MOZ_ENABLE_WAYLAND=1
