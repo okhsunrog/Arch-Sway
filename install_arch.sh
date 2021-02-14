@@ -15,7 +15,7 @@ n
 1
 
 +50M
-ef00
+
 w
 y
 EOF
@@ -43,11 +43,7 @@ mount -t btrfs -o subvol=@log,$o LABEL=system /mnt/var/log
 mkdir /mnt/{boot,etc}
 genfstab -L /mnt > /mnt/etc/fstab
 mount LABEL=EFI /mnt/boot
-cp crypto_keyfile.bin /mnt/boot/
-cp crypto_keyfile.bin /mnt
-echo "
-LABEL=EFI               /boot           vfat            noauto,rw,noatime 0 2
-" >> /mnt/etc/fstab
+cp crypto_keyfile.bin /mnt/
 echo "Installing packages..."
 pacstrap /mnt base base-devel mkinitcpio mkinitcpio-busybox linux-firmware intel-ucode man-db man-pages neovim networkmanager
 echo "Configuring..."
