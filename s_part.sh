@@ -6,6 +6,7 @@ rm /etc/mkinitcpio.conf
 sed -i 's/# deny = 3/deny = 0/g' /etc/security/faillock.conf
 sed -i 's/CFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"/CFLAGS="-march=native -O2 -pipe -fno-plt"/g' /etc/makepkg.conf
 sed -i 's/CXXFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"/CXXFLAGS="-march=native -O2 -pipe -fno-plt"/g' /etc/makepkg.conf
+sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j4"/g' /etc/makepkg.conf
 sed -i 's/#RUSTFLAGS="-C opt-level=2"/RUSTFLAGS="-C opt-level=2 -C target-cpu=native"/g' /etc/makepkg.conf
 sed -i 's/#HandleLidSwitch=suspend/HandleLidSwitch=suspend-then-hibernate/g' /etc/systemd/logind.conf
 sed -i 's/#HandleLidSwitchExternalPower=suspend/HandleLidSwitchExternalPower=suspend-then-hibernate/g' /etc/systemd/logind.conf
