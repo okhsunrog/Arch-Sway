@@ -40,6 +40,7 @@ echo "keyserver hkp://pool.sks-keyservers.net
 keyserver https://sks-keyservers.net////
 keyserver https://keys.mailvelope.com/
 keyserver https://keys.openpgp.org/" >> /root/.gnupg/dirmngr.conf
+chmod 600 /crypto_keyfile.bin
 read -p 'Enter root password: ' rpass
 echo "$rpass
 $rpass" | passwd
