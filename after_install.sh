@@ -16,12 +16,11 @@ sudo mkdir /opt/{idea,pycharm,clion}
 sudo curl -L "https://download.jetbrains.com/product?code=IIU&latest&distribution=linux" | sudo tar xvz -C /opt/idea  --strip 1
 sudo curl -L "https://download.jetbrains.com/product?code=PY&latest&distribution=linux" | sudo tar xvz -C /opt/pycharm  --strip 1
 sudo curl -L "https://download.jetbrains.com/product?code=CL&latest&distribution=linux" | sudo tar xvz -C /opt/clion  --strip 1
-BUILDDIR=/tmp/makepkg yay -S virtualbox-ext-oracle upd72020x-fw youtube-music-appimage swaynagmode qt5-styleplugins gtk-theme-numix-solarized numix-icon-theme-git kotatogram-desktop-bin mimeo perl-file-mimeinfo qbittorrent-enhanced-git pipewire libpipewire02 xdg-desktop-portal xdg-desktop-portal-wlr google-chrome wofi-hg ytop-bin nerd-fonts-dejavu-complete i3ipc-python-git clipman tor-browser smtube youtube-dl translate-shell obs-studio-wayland wlrobs zoom swaylock-effects-git yandex-disk adbfs-rootless-git scrcpy nm-connection-editor hunspell hunspell-en_US hunspell-ru-aot-ieyo hyphen hyphen-en hyphen-ru --noconfirm --sudoloop
+BUILDDIR=/tmp/makepkg yay -S i3status-rust-git virtualbox-ext-oracle upd72020x-fw youtube-music-appimage swaynagmode qt5-styleplugins gtk-theme-numix-solarized numix-icon-theme-git kotatogram-desktop-bin mimeo perl-file-mimeinfo qbittorrent-enhanced-git pipewire libpipewire02 xdg-desktop-portal xdg-desktop-portal-wlr google-chrome wofi-hg ytop-bin nerd-fonts-dejavu-complete i3ipc-python-git clipman tor-browser smtube youtube-dl translate-shell obs-studio-wayland wlrobs zoom swaylock-effects-git yandex-disk adbfs-rootless-git scrcpy nm-connection-editor hunspell hunspell-en_US hunspell-ru-aot-ieyo hyphen hyphen-en hyphen-ru --noconfirm --sudoloop
 yay -Rdd xdg-utils --noconfirm
 yay -Rns vlc --noconfirm
 BUILDDIR=/tmp/makepkg yay -S xdg-utils-mimeo --noconfirm
 nvim -c ":PlugInstall"
-sudo btrfs quota enable /
 sudo umount -R /.snapshots
 sudo umount -R /home/.snapshots
 sudo rm -r /.snapshots
@@ -37,14 +36,14 @@ sudo chmod 750 /.snapshots
 sudo chmod 750 /home/.snapshots
 sudo sed -i 's/TIMELINE_LIMIT_MONTHLY="10"/TIMELINE_LIMIT_MONTHLY="0"/g' /etc/snapper/configs/root
 sudo sed -i 's/TIMELINE_LIMIT_YEARLY="10"/TIMELINE_LIMIT_YEARLY="0"/g' /etc/snapper/configs/root
-sudo sed -i 's/TIMELINE_LIMIT_HOURLY="10"/TIMELINE_LIMIT_HOURLY="20"/g' /etc/snapper/configs/root
+sudo sed -i 's/TIMELINE_LIMIT_HOURLY="10"/TIMELINE_LIMIT_HOURLY="5"/g' /etc/snapper/configs/root
 sudo sed -i 's/TIMELINE_LIMIT_MONTHLY="10"/TIMELINE_LIMIT_MONTHLY="0"/g' /etc/snapper/configs/home
 sudo sed -i 's/TIMELINE_LIMIT_YEARLY="10"/TIMELINE_LIMIT_YEARLY="0"/g' /etc/snapper/configs/home
-sudo sed -i 's/TIMELINE_LIMIT_HOURLY="10"/TIMELINE_LIMIT_HOURLY="20"/g' /etc/snapper/configs/home
+sudo sed -i 's/TIMELINE_LIMIT_HOURLY="10"/TIMELINE_LIMIT_HOURLY="5"/g' /etc/snapper/configs/home
+sudo sed -i 's/TIMELINE_LIMIT_DAILY="10"/TIMELINE_LIMIT_DAILY="2"/g' /etc/snapper/configs/home
+sudo sed -i 's/TIMELINE_LIMIT_DAILY="10"/TIMELINE_LIMIT_DAILY="2"/g' /etc/snapper/configs/root
 sudo mkdir /.bootbackup
 sudo cp -r /boot /.bootbackup/
-sudo snapper -c root create --description "After installation"
-sudo snapper -c home create --description "After installation"
 sleep 2
 rm "after_install.sh"
 rm .local/share/applications/*Kotatogram_Desktop.desktop
