@@ -1,10 +1,9 @@
 # mod is 'Windows' key
 set $mod Mod4
-set $term footclient
 
 #Toggle touchpad
-bindsym --to-code $mod+y input 1267:91:Elan_Touchpad events disabled
-bindsym --to-code $mod+Shift+y input 1267:91:Elan_Touchpad events enabled
+#bindsym --to-code $mod+y input 1267:91:Elan_Touchpad events disabled
+#bindsym --to-code $mod+Shift+y input 1267:91:Elan_Touchpad events enabled
 
 #Notifications dismiss
 bindsym --to-code $mod+Shift+n exec "/home/$USER/scripts/dismiss_n_a.sh"
@@ -40,7 +39,8 @@ bindsym --to-code $mod+d exec "/home/$USER/scripts/menu.sh"
 bindsym --to-code $mod+l exec "/home/$USER/scripts/lock.sh"
 
 # Start a terminal
-bindsym --to-code $mod+t exec $term
+bindsym --to-code $mod+t exec footclient
+bindsym --to-code $mod+Shift+t exec "footclient -a floationg-foot"
 
 # Close focused window
 bindsym --to-code $mod+q kill

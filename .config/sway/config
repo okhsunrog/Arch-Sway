@@ -97,6 +97,7 @@ font pango:DejaVu Sans Mono, Font Awesome 5 Free
 
 
 #Windows' configuration
+for_window [app_id="floationg-foot"] floating enable
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="nmtui"] floating enable
 for_window [title="Device connected - Mozilla Firefox"] floating enable
