@@ -33,8 +33,7 @@ buttons = []
 marquee = false
 max_width = 14
 smart_trim = false
-player = "youtubemusic"
-on_collapsed_click = "youtube-music"
+on_collapsed_click = "deadbeef"
 
 [[block]]
 block = "keyboard_layout"

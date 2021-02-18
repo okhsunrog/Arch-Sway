@@ -33,8 +33,7 @@ buttons = ["prev", "play", "next"]
 marquee = false
 max_width = 30
 smart_trim = true
-player = "youtubemusic"
-on_collapsed_click = "youtube-music"
+on_collapsed_click = "deadbeef"
 
 [[block]]
 block = "keyboard_layout"
