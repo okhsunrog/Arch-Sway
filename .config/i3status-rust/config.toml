@@ -34,7 +34,7 @@ marquee = false
 max_width = 14
 smart_trim = false
 on_collapsed_click = "deadbeef"
-
+on_click = "deadbeef"
 [[block]]
 block = "keyboard_layout"
 driver = "sway"
