@@ -44,8 +44,6 @@ sudo sed -i 's/TIMELINE_LIMIT_YEARLY="10"/TIMELINE_LIMIT_YEARLY="0"/g' /etc/snap
 sudo sed -i 's/TIMELINE_LIMIT_HOURLY="10"/TIMELINE_LIMIT_HOURLY="5"/g' /etc/snapper/configs/home
 sudo sed -i 's/TIMELINE_LIMIT_DAILY="10"/TIMELINE_LIMIT_DAILY="2"/g' /etc/snapper/configs/home
 sudo sed -i 's/TIMELINE_LIMIT_DAILY="10"/TIMELINE_LIMIT_DAILY="2"/g' /etc/snapper/configs/root
-sudo mkdir /.bootbackup
-sudo cp -r /boot /.bootbackup/
 sleep 2
 rm "after_install.sh"
 rm .local/share/applications/*Kotatogram_Desktop.desktop
