@@ -1,5 +1,6 @@
 #!/bin/bash
 swaylock \
+  -f \
 	--clock \
 	--indicator \
 	--indicator-radius 100 \

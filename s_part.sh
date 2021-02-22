@@ -13,6 +13,7 @@ sed -i 's/CXXFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"/CXXFLAGS="-
 sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j4"/g' /etc/makepkg.conf
 sed -i 's/#RUSTFLAGS="-C opt-level=2"/RUSTFLAGS="-C opt-level=2 -C target-cpu=native"/g' /etc/makepkg.conf
 sed -i 's/#HandleLidSwitch=suspend/HandleLidSwitch=suspend-then-hibernate/g' /etc/systemd/logind.conf
+sed -i 's/#InhibitDelayMaxSec=5/InhibitDelayMaxSec=30/g' /etc/systemd/logind.conf
 sed -i 's/#HandleLidSwitchExternalPower=suspend/HandleLidSwitchExternalPower=suspend-then-hibernate/g' /etc/systemd/logind.conf
 sed -i 's/#HibernateDelaySec=180min/HibernateDelaySec=120min/g' /etc/systemd/sleep.conf 
 echo 'COMPRESSION=zstd
@@ -116,7 +117,7 @@ echo "title           Arch Linux
 linux           /vmlinuz-linux-okhsunrog
 initrd          /intel-ucode.img
 initrd          /initramfs-linux-okhsunrog.img
-options         cryptdevice=/dev/disk/by-id/ata-WDC_WDS100T2B0A-00SM50_203707800166:cryptsystem:allow-discards crypto=:aes-xts-plain64:512:0: root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rw quiet" > /boot/loader/entries/arch.conf
+options         iommu=soft amd_iommu=off cryptdevice=/dev/disk/by-id/ata-WDC_WDS100T2B0A-00SM50_203707800166:cryptsystem:allow-discards crypto=:aes-xts-plain64:512:0: root=LABEL=system resume=LABEL=system rootflags=subvol=@ resumeflags=subvol=@ resume_offset=$OU3 rw quiet" > /boot/loader/entries/arch.conf
 echo "
 LABEL=EFI               /boot           vfat            noauto,rw,noatime 0 2
 " >> /etc/fstab
