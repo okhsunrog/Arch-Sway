@@ -1,4 +1,5 @@
 #Autostart
+exec "persway -a"
 exec mako
 exec systembus-notify
 exec udiskie
@@ -27,6 +28,8 @@ output HDMI-A-1 {
 	pos 1366 0
 }
 
+#Locks PC before sleep and hibernation
+exec swayidle -w before-sleep "/home/$USER/scripts/lock.sh"
 
 workspace 1 output HDMI-A-1
 workspace 2 output HDMI-A-1
@@ -43,9 +46,6 @@ workspace 1
 
 bindswitch --reload --locked lid:on output eDP-1 disable
 bindswitch --reload --locked lid:off output eDP-1 enable
-
-#Locks PC before sleep and hibernation
-exec swayidle -w before-sleep "/home/$USER/scripts/lock.sh"
 
 ### Input configuration
 input "*" {
