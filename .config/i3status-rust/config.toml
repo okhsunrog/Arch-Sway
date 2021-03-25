@@ -33,8 +33,9 @@ buttons = []
 marquee = false
 max_width = 14
 smart_trim = false
-on_collapsed_click = "deadbeef"
-on_click = "deadbeef"
+on_collapsed_click = "firefox 'music.youtube.com'"
+on_click = "firefox 'music.youtube.com'"
+
 [[block]]
 block = "keyboard_layout"
 driver = "sway"

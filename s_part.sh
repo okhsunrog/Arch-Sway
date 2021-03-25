@@ -121,6 +121,12 @@ options         iommu=soft amd_iommu=off cryptdevice=/dev/disk/by-id/ata-WDC_WDS
 echo "
 LABEL=EFI               /boot           vfat            noauto,rw,noatime 0 2
 " >> /etc/fstab
+echo "# Use PulseAudio plugin hw
+pcm.!default {
+   type plug
+   slave.pcm hw
+}
+" > /etc/asound.conf
 mv /Wallpapers /home/$uname/real_home/Pictures/Wallpapers
 rm -rf /home/$uname/.local
 rm -rf /home/$uname/.config

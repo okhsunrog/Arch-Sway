@@ -26,3 +26,7 @@ set expandtab
 set termguicolors
 set background=dark
 set number
+
+noremap Y "+y
+noremap P "+p
+

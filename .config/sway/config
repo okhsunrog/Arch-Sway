@@ -1,5 +1,6 @@
 #Autostart
-exec "persway -a"
+exec swaykbdd
+exec autotiling
 exec mako
 exec systembus-notify
 exec udiskie
@@ -109,6 +110,8 @@ for_window [title="win0"] floating enable
 for_window [title="Open Files"] floating enable
 for_window [title="Save File"] floating enable
 for_window [title="discord.com is sharing your screen."] floating enable
+for_window [title="Emulator"] floating enable
+for_window [title="Android Emulator*"] floating enable
 
 default_floating_border none
 default_border none
